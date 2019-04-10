@@ -1,4 +1,5 @@
 from datetime import date
+from datetime import datetime
 from datetime import timedelta
 
 from sqlalchemy import BigInteger
@@ -93,8 +94,10 @@ class DsetRow(Base):
 
     @hybrid_property
     def usia(self):
-        result = (date.today() - self.tanggal_lahir) // timedelta(days=365.2425)
-        print(f"usia= {result}")
+        tgl_lahir = self.tanggal_lahir
+        if type(tgl_lahir) is datetime:
+            tgl_lahir = tgl_lahir.date()
+        result = (date.today() - tgl_lahir) // timedelta(days=365.2425)
         return result
 
     @hybrid_property
@@ -144,3 +147,14 @@ class DsetRow(Base):
         if row == ( TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW, TLE_MID, TLE_MID ): return TLE_LOW
 
         return TLE_LOW
+
+    def __repr__(self):
+        return f"(id={self.id}, " \
+            f"pendidikan={self.tingkat_pendidikan}," \
+            f"usia={self.usia}," \
+            f"hub_keluarga={self.hub_kel}," \
+            f"tingkat_ekonomi={self.tingkat_ekonomi}," \
+            f"status_adat={self.status_adat}," \
+            f"pekerjaan={self.pekerjaan}," \
+            f"mamulu_kaki={self.mamuli_kaki}, " \
+            f"mamulu_polos={self.mamuli_polos})"

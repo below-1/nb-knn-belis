@@ -6,7 +6,7 @@
     <div class="col-md-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Input Data Kasus</h4>
+          <h4 class="card-title">Input Data Diagnosa</h4>
           <form class="forms-sample" method="POST" enctype="multipart/form-data">
 
             {{ macros.input("nama", label="Nama", required=True) }}
@@ -32,16 +32,6 @@
                 ]
               )
             }}
-
-            {{ macros.input("mamuli_kaki", label="Mamuli Kaki", type="number", required=True) }}
-            {{ macros.input("mamuli_polos", label="Mamuli Polos", type="number", required=True) }}
-            {{ macros.input("kuda", label="Kuda (Per Ekor)", type="number", required=True) }}
-            {{ macros.input("kerbau", label="Kerbau (Per Ekor)", type="number", required=True) }}
-            {{ macros.input("sapi", label="Sapi (Per Ekor)", type="number", required=True) }}
-            {{ macros.input("uang", label="Uang Tunai", type="number", required=True) }}
-
-            {{ macros.input("latitude", label="Latitude") }}
-            {{ macros.input("longitude", label="Longitude") }}
 
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button class="btn btn-light">Cancel</button>

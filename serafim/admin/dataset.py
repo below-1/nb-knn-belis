@@ -36,7 +36,8 @@ DSET_FORM_OPTIONS = {
     'pekerjaan': [
         ('Petani', Pekerjaan.PETANI.name),
         ('Honorer / Pegawai Tidak Tetap', Pekerjaan.HONORER_PTT.name),
-        ('PNS', Pekerjaan.PNS.name)
+        ('PNS', Pekerjaan.PNS.name),
+        ('Tenun Ikat', Pekerjaan.TENUN_IKAT.name)
     ],
     'tingkat_ekonomi': [
         ('Rendah', TingkatEkonomi.RENDAH.name),
@@ -58,7 +59,8 @@ def admin_list_dataset():
     show_detail_belis = True if show_detail_belis is not None else False
 
     db_session = g.get('db_session')
-    dataset = db_session.query(DsetRow).all()
+    dataset = db_session.query(DsetRow).filter(DsetRow.is_kasus == True).all()
+    print(dataset)
     print([ row.usia for row in dataset ])
     return render_template("admin/dataset/list.html",
       items=dataset,
@@ -74,7 +76,8 @@ def admin_create_dataset():
         return render_template("admin/dataset/create.html", options=DSET_FORM_OPTIONS)
 
     form = request.form
-    dset_row = converter.kasus_from_dict(form)
+    dset_row = DsetRow()
+    dset_row = converter.kasus_from_dict(dset_row, form)
 
     user_id = int(session['user_id'])
     dset_row.user_id = int(user_id)
@@ -96,31 +99,15 @@ def admin_update_dataset(id):
                                options=DSET_FORM_OPTIONS)
     form = request.form
     dset_row = db_session.query(DsetRow).filter(DsetRow.id == id).first()
-    dset_row.nama = form['nama']
+    dset_row = converter.kasus_from_dict(dset_row, form)
+    db_session.commit()
+    return redirect(url_for("admin.admin_list_dataset"))
 
-    # Parse the string to Python datetime object
-    dset_row.tanggal_lahir = form['tanggal_lahir']
-
-    dset_row.status_adat = form['status_adat']
-    dset_row.tingkat_pendidikan = form['tingkat_pendidikan']
-    dset_row.tingkat_ekonomi = form['tingkat_ekonomi']
-    dset_row.pekerjaan = form['pekerjaan']
-
-    dset_row.hub_kel = form['hub_kel'] == '1'
-
-    # Here is the Integer inputs
-    dset_row.mamuli_kaki = int(form['mamuli_kaki'])
-    dset_row.mamuli_polos = int(form['mamuli_polos'])
-    dset_row.kuda = int(form['kuda'])
-    dset_row.kerbau = int(form['kerbau'])
-    dset_row.sapi = int(form['sapi'])
-    dset_row.uang = int(form['uang'])
-
-    dset_row.is_kasus = False
-    dset_row.is_record = True
-
-@admin_blueprint.route('/dataset/delete/:id')
+@admin_blueprint.route('/dataset/delete/<id>', methods=['GET'])
 @admin_required
 @db_session_required
 def admin_delete_dataset(id):
-    pass
+    db_session = g.get('db_session')
+    db_session.query(DsetRow).filter_by(id=id).delete()
+    db_session.commit()
+    return redirect(url_for('admin.admin_list_dataset'))

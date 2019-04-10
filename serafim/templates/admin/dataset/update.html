@@ -9,36 +9,36 @@
           <h4 class="card-title">Update Data Kasus</h4>
           <form class="forms-sample" method="POST" enctype="multipart/form-data">
 
-            {{ macros.input("nama", label="Nama", required=True, value="{{dset_row.nama}}") }}
+            {{ macros.input("nama", label="Nama", required=True, value=dset_row.nama) }}
 
-            {{ macros.input("tanggal_lahir", type="date", label="Tanggal Lahir", required=True, value="{{dset_row.tanggal_html_string}}") }}
+            {{ macros.input("tanggal_lahir", type="date", label="Tanggal Lahir", required=True, value=dset_row.tanggal_html_string) }}
 
             {{ macros.select(
                   "status_adat",
                   options=options['status_adat'],
                   label="Status Adat",
-                  default_selected="{{dset_row.status_adat.name}}"
+                  default_selected=dset_row.status_adat.name
               )
             }}
 
             {{ macros.select("tingkat_pendidikan",
                     options=options['tingkat_pendidikan'],
                     label="Tingkat Pendidikan",
-                    default_selected="{{dset_row.tingkat_pendidikan}}"
+                    default_selected=dset_row.tingkat_pendidikan
               )
             }}
 
             {{ macros.select("tingkat_ekonomi",
                     options=options['tingkat_ekonomi'],
                     label="Tingkat Ekonomi",
-                    default_selected="{{ dset_row.tingkat_ekonomi.name }}"
+                    default_selected=dset_row.tingkat_ekonomi.name
               )
             }}
 
             {{ macros.select("pekerjaan",
                     options=options['pekerjaan'],
                     label="Pekerjaan",
-                    default_selected="{{ dset_row.pekerjaan.name }}
+                    default_selected=dset_row.pekerjaan.name
               )
             }}
 
@@ -48,7 +48,7 @@
                   ('Ya', 1),
                   ("Tidak", 0)
                 ],
-                default_selected="{{ dset_row.hub_keluarga ? 1 : 0 }}"
+                default_selected=(1 if dset_row.hub_keluarga else 0)
               )
             }}
 
@@ -56,7 +56,7 @@
                 macros.input("mamuli_kaki",
                     label="Mamuli Kaki",
                     type="number", required=True,
-                    value={{dset_row.mamuli_kaki}}
+                    value=dset_row.mamuli_kaki
                 )
               }}
 
@@ -65,7 +65,7 @@
                 label="Mamuli Polos",
                 type="number",
                 required=True,
-                value={{dset_row.mamuli_polos}}
+                value=dset_row.mamuli_polos
               )
             }}
 
@@ -74,7 +74,7 @@
                 label="Kuda",
                 type="number",
                 required=True,
-                value={{dset_row.kuda}}
+                value=dset_row.kuda
               )
             }}
 
@@ -83,7 +83,7 @@
                 label="Kerbau",
                 type="number",
                 required=True,
-                value={{dset_row.kerbau}}
+                value=dset_row.kerbau
               )
             }}
 
@@ -92,7 +92,7 @@
                 label="Sapi",
                 type="number",
                 required=True,
-                value={{dset_row.sapikerbau}}
+                value=dset_row.sapikerbau
               )
             }}
 
@@ -101,7 +101,7 @@
                 label="Uang",
                 type="number",
                 required=True,
-                value={{dset_row.uang}}
+                value=dset_row.uang
               )
             }}
 

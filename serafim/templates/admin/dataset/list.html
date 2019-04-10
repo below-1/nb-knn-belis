@@ -121,10 +121,10 @@
 
                 {% if show_detail_belis %}
                     <td>
-                      {{ dset_row.mamulu_kaki }}
+                      {{ dset_row.mamuli_kaki }}
                     </td>
                       <td>
-                      {{ dset_row.mamulu_polos }}
+                      {{ dset_row.mamuli_polos }}
                     </td>
                       <td>
                       {{ dset_row.kuda }}
@@ -148,6 +148,12 @@
                       type="button"
                       class="btn btn-primary btn-rounded btn-sm">
                         <i class="mdi mdi-home-outline"></i>
+                    </a>
+                    <a
+                      href="/admin/dataset/delete/{{dset_row.id}}"
+                      type="button"
+                      class="btn btn-danger btn-rounded btn-sm">
+                        <i class="mdi mdi-cancel"></i>
                     </a>
                 </td>
                 <td>
