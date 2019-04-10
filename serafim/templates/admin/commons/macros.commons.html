@@ -1,0 +1,51 @@
+{% macro input(name, label='', value='', type='text', required=False ) -%}
+  <div class="form-group">
+    <label>{{ label }}</label>
+    <input
+      class="form-control"
+      type="{{ type }}"
+      name="{{ name }}"
+      value="{{ value|e }}"
+      {% if required %}
+      required
+      {% endif %}
+    />
+  </div>
+{%- endmacro %}
+
+{% macro select(name, options, label='', default_selected='' ) -%}
+  <div class="form-group">
+    <label>{{ label }}</label>
+    <select name="{{ name }}" class="form-control">
+      {% for option_name, option_value in options %}
+        <option 
+          value="{{ option_value }}"
+          {% if option_value == default_selected %}
+            selected
+          {% endif %}
+        >{{ option_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+{%- endmacro %}
+
+{% macro radio(name, options, label='', default_selected='') -%}
+  <div class="form-group">
+    <label>{{ label }}?</label>
+    {% for option_name, option_value in options %}
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input"
+                 name="{{ name }}"
+                 id="optionsRadios1"
+                 value="{{ option_value }}"
+                 {% if option_value == default_selected %}
+                    {{ selected }}
+                 {% endif %}
+          >
+          {{ option_name }}
+        </label>
+      </div>
+    {% endfor %}
+  </div>
+{%- endmacro %}

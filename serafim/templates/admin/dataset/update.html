@@ -1,0 +1,115 @@
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
+
+{% block mainContent %}
+  <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Update Data Kasus</h4>
+          <form class="forms-sample" method="POST" enctype="multipart/form-data">
+
+            {{ macros.input("nama", label="Nama", required=True, value="{{dset_row.nama}}") }}
+
+            {{ macros.input("tanggal_lahir", type="date", label="Tanggal Lahir", required=True, value="{{dset_row.tanggal_html_string}}") }}
+
+            {{ macros.select(
+                  "status_adat",
+                  options=options['status_adat'],
+                  label="Status Adat",
+                  default_selected="{{dset_row.status_adat.name}}"
+              )
+            }}
+
+            {{ macros.select("tingkat_pendidikan",
+                    options=options['tingkat_pendidikan'],
+                    label="Tingkat Pendidikan",
+                    default_selected="{{dset_row.tingkat_pendidikan}}"
+              )
+            }}
+
+            {{ macros.select("tingkat_ekonomi",
+                    options=options['tingkat_ekonomi'],
+                    label="Tingkat Ekonomi",
+                    default_selected="{{ dset_row.tingkat_ekonomi.name }}"
+              )
+            }}
+
+            {{ macros.select("pekerjaan",
+                    options=options['pekerjaan'],
+                    label="Pekerjaan",
+                    default_selected="{{ dset_row.pekerjaan.name }}
+              )
+            }}
+
+            {{ macros.radio('hub_kel',
+                label='Punya Hubungan Keluarga?',
+                options=[
+                  ('Ya', 1),
+                  ('Tidak', 0)
+                ],
+                default_selected='{{ dset_row.hub_keluarga ? 1 : 0 }}'
+              )
+            }}
+
+            {{
+                macros.input("mamuli_kaki",
+                    label="Mamuli Kaki",
+                    type="number", required=True,
+                    value={{dset_row.mamuli_kaki}}
+                )
+              }}
+
+            {{
+              macros.input("mamuli_polos",
+                label="Mamuli Polos",
+                type="number",
+                required=True,
+                value={{dset_row.mamuli_polos}}
+              )
+            }}
+
+            {{
+              macros.input("kuda",
+                label="Kuda",
+                type="number",
+                required=True,
+                value={{dset_row.kuda}}
+              )
+            }}
+
+            {{
+              macros.input("kerbau",
+                label="Kerbau",
+                type="number",
+                required=True,
+                value={{dset_row.kerbau}}
+              )
+            }}
+
+            {{
+              macros.input("sapi",
+                label="Sapi",
+                type="number",
+                required=True,
+                value={{dset_row.sapikerbau}}
+              )
+            }}
+
+            {{
+              macros.input("uang",
+                label="Uang",
+                type="number",
+                required=True,
+                value={{dset_row.uang}}
+              )
+            }}
+
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
