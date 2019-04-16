@@ -1,1 +1,65 @@
-Foo
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
+
+{% macro listRow(label, value) -%}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{label}}
+    <h5 class="my-0 py-0"><strong>{{value}}</strong></h5>
+  </li>
+{%- endmacro %}
+
+{% block mainContent %}
+  <div class="row">
+      <div class="col-md-12">
+          <h2 class="mb-4">
+              Hasil Diagnosa Kasus Baru
+          </h2>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 grid-margin stretch-card">
+      <div class="card">
+          <div class="card-header">
+              Data Kasus Baru
+          </div>
+        <ul class="list-group">
+            {{ listRow("Nama", new_case.nama)}}
+            {{ listRow("Usia", "%d tahun" % new_case.usia)}}
+            {{ listRow("Tingkat Pendidikan", new_case.tingkat_pendidikan.name)}}
+            {{ listRow("Pekerjaan", new_case.pekerjaan_str)}}
+            {{ listRow("Pekerjaan", 'Ada' if new_case.hub_keluarga else 'Tidak Ada')}}
+            {{ listRow("Tingkat Pendidikan", new_case.tingkat_ekonomi.name.capitalize())}}
+        </ul>
+
+      </div>
+    </div>
+    <div class="col-md-4 grid-margin stretch-card">
+      <div class="card">
+          <div class="card-header">
+              Data Kasus Paling Mirip
+          </div>
+        <ul class="list-group">
+            {{ listRow("Nama", most_sim_case.nama)}}
+            {{ listRow("Usia", "%d tahun" % most_sim_case.usia)}}
+            {{ listRow("Tingkat Pendidikan", most_sim_case.tingkat_pendidikan.name)}}
+            {{ listRow("Pekerjaan", most_sim_case.pekerjaan_str)}}
+            {{ listRow("Pekerjaan", 'Ada' if most_sim_case.hub_keluarga else 'Tidak Ada')}}
+            {{ listRow("Tingkat Pendidikan", most_sim_case.tingkat_ekonomi.name.capitalize())}}
+        </ul>
+
+      </div>
+    </div>
+    <div class="col-md-4 grid-margin stretch-card">
+      <div class="card">
+          <div class="card-header">
+              Hasil
+          </div>
+        <ul class="list-group">
+            {{ listRow("Probabilitas Naive Bayes", result['max_nb_prob'])}}
+            {{ listRow("Similaritas Kasus", result['max_knn_sim'])}}
+        </ul>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -7,7 +7,7 @@
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h3 class="my-0 py-0">
-              Data Kasus Yang Perlu Direvisi
+              Dataset
             </h3>
 
             <div class="btn-group ml-4" role="group">
@@ -121,10 +121,10 @@
 
                 {% if show_detail_belis %}
                     <td>
-                      {{ dset_row.mamulu_kaki }}
+                      {{ dset_row.mamuli_kaki }}
                     </td>
                       <td>
-                      {{ dset_row.mamulu_polos }}
+                      {{ dset_row.mamuli_polos }}
                     </td>
                       <td>
                       {{ dset_row.kuda }}
@@ -143,9 +143,18 @@
                   {{ dset_row.prediksi_code.name }}
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-rounded btn-sm">
+                    <a
+                      href="/admin/revisi/update/{{dset_row.id}}"
+                      type="button"
+                      class="btn btn-primary btn-rounded btn-sm">
                         <i class="mdi mdi-home-outline"></i>
-                    </button>
+                    </a>
+                    <a
+                      href="/admin/revisi/delete/{{dset_row.id}}"
+                      type="button"
+                      class="btn btn-danger btn-rounded btn-sm">
+                        <i class="mdi mdi-cancel"></i>
+                    </a>
                 </td>
                 <td>
 

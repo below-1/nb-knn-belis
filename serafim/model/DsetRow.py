@@ -75,8 +75,10 @@ class DsetRow(Base):
     sapi = Column(SmallInteger, nullable=False)
     uang = Column(BigInteger, nullable=False)
 
+    kecamatan = Column(String, nullable=True)
     location_latitude = Column(String, nullable=True)
     location_longitude = Column(String, nullable=True)
+    
     facebook_target_id = Column(String, nullable=True)
 
     user_id = Column(Integer, ForeignKey("user.id"))
@@ -147,6 +149,10 @@ class DsetRow(Base):
         if row == ( TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW, TLE_MID, TLE_MID ): return TLE_LOW
 
         return TLE_LOW
+
+    @hybrid_property
+    def pekerjaan_str(self):
+        return ' '.join(s.capitalize() for s in self.pekerjaan.name.split('_'))
 
     def __repr__(self):
         return f"(id={self.id}, " \

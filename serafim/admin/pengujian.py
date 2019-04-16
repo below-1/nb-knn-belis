@@ -75,12 +75,16 @@ def admin_pengujian_single():
         most_sim_id = result['max_knn_row_id']
         most_sim_case = db_session.query(DsetRow).filter(DsetRow.id == most_sim_id).first()
 
+        dset_row.user_id = session['user_id']
         dset_row.mamuli_kaki = most_sim_case.mamuli_kaki
         dset_row.mamuli_polos = most_sim_case.mamuli_polos
         dset_row.kuda = most_sim_case.kuda
         dset_row.kerbau = most_sim_case.kerbau
         dset_row.sapi = most_sim_case.sapi
         dset_row.uang = most_sim_case.uang
+        dset_row.is_record = True
+        dset_row.is_kasus = True
+        dset_row.similarity = result['max_knn_sim']
 
         db_session.add(dset_row)
         db_session.commit()
@@ -90,4 +94,21 @@ def admin_pengujian_single():
                                most_sim_case=most_sim_case,
                                result=result)
 
-    return json.dumps(result)
+    dset_row.mamuli_kaki = 0
+    dset_row.mamuli_polos = 0
+    dset_row.kuda = 0
+    dset_row.kerbau = 0
+    dset_row.sapi = 0
+    dset_row.uang = 0
+
+    dset_row.is_record = True
+    dset_row.is_kasus = False
+    dset_row.similarity = result['max_knn_sim']
+    dset_row.user_id = session['user_id']
+
+    db_session.add(dset_row)
+    db_session.commit()
+
+    # If not, tell user that he/she need to change the solusi first.
+    # And save the data as revisi
+    return render_template("admin/pengujian/single-fail-result.html", result=result)

@@ -3,6 +3,7 @@ from serafim.admin.blueprint import admin_blueprint
 
 # Import route functions
 from serafim.admin import dataset
+from serafim.admin import revisi
 from serafim.admin import data_user
 from serafim.admin import pengujian
 

@@ -1,0 +1,34 @@
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
+
+{% macro listRow(label, value) -%}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{label}}
+    <h5 class="my-0 py-0"><strong>{{value}}</strong></h5>
+  </li>
+{%- endmacro %}
+
+{% block mainContent %}
+  <div class="row">
+      <div class="col-md-10">
+          <div class="jumbotron">
+              <h1 class="display-4">
+                  Maaf, Nilai similaritas yang didapatkan terlalu rendah ( {{ '%0.2f' % (result['max_knn_sim'] * 100) }}% )
+              </h1>
+              <p class="lead">
+                Anda harus merubah data solusi kasus untuk menambahkannya ke basis kasus.
+              </p>
+              <hr class="my-4">
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Ubah Solusi</a>
+              </p>
+            </div>
+          <h2 class="mb-0">
+
+          </h2>
+          <h4 class="mb-4">
+
+          </h4>
+      </div>
+  </div>
+{% endblock %}
