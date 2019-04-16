@@ -2,5 +2,3 @@ db/
 env/
 .idea/
 __pycache__/
-*/static/
-*/templates/
