@@ -1,3 +1,4 @@
+import enum
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
@@ -19,12 +20,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from serafim.model.base import Base
-import enum
-
-class ThreeLevelEnum(enum.Enum):
-    RENDAH = 'RENDAH'
-    SEDANG = 'SEDANG'
-    TINGGI = 'TINGGI'
+from serafim.model.ThreeLevelEnum import ThreeLevelEnum
+from serafim.model.rules import prediksi
 
 TLE_LOW = ThreeLevelEnum.RENDAH
 TLE_MID = ThreeLevelEnum.SEDANG
@@ -60,7 +57,7 @@ class TingkatEkonomi(enum.Enum):
 class DsetRow(Base):
     __tablename__ = 'dset_row'
     id = Column(Integer, primary_key=True)
-    nama = Column(String, nullable=False)
+    nama = Column(String(250), nullable=False)
     tanggal_lahir = Column(Date, nullable=False)
     status_adat = Column(Enum(StatusAdat), nullable=False)
     tingkat_pendidikan = Column(Enum(TingkatPendidikan), nullable=False)
@@ -75,11 +72,11 @@ class DsetRow(Base):
     sapi = Column(SmallInteger, nullable=False)
     uang = Column(BigInteger, nullable=False)
 
-    kecamatan = Column(String, nullable=True)
-    location_latitude = Column(String, nullable=True)
-    location_longitude = Column(String, nullable=True)
+    kecamatan = Column(String(250), nullable=True)
+    location_latitude = Column(String(250), nullable=True)
+    location_longitude = Column(String(250), nullable=True)
     
-    facebook_target_id = Column(String, nullable=True)
+    facebook_target_id = Column(String(250), nullable=True)
 
     user_id = Column(Integer, ForeignKey("user.id"))
     user = relationship("User", back_populates="records")
@@ -125,14 +122,14 @@ class DsetRow(Base):
         val = self.kerbau
         if val < 5: return ThreeLevelEnum.RENDAH
         if 5 <= val <= 10: return ThreeLevelEnum.SEDANG
-        if val > 30: return ThreeLevelEnum.TINGGI
+        if val > 10: return ThreeLevelEnum.TINGGI
 
     @hybrid_property
     def sapi_code(self):
         val = self.sapi
         if val < 5: return ThreeLevelEnum.RENDAH
         if 5 <= val <= 10: return ThreeLevelEnum.SEDANG
-        if val > 30: return ThreeLevelEnum.TINGGI
+        if val > 10: return ThreeLevelEnum.TINGGI
 
     @hybrid_property
     def uang_code(self):
@@ -144,11 +141,16 @@ class DsetRow(Base):
     @hybrid_property
     def prediksi_code(self):
         row = ( self.mamulu_kaki_code, self.mamulu_polos_code, self.kuda_code, self.kerbau_code, self.sapi_code, self.uang_code )
-        if row == ( TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW ): return TLE_LOW
-        if row == ( TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW, TLE_MID ): return TLE_LOW
-        if row == ( TLE_LOW, TLE_LOW, TLE_LOW, TLE_LOW, TLE_MID, TLE_MID ): return TLE_LOW
-
-        return TLE_LOW
+        # row_raw = ( self.mamuli_kaki,
+        #             self.mamuli_polos,
+        #             self.kuda,
+        #             self.kerbau,
+        #             self.sapi,
+        #             self.uang )
+        # print('Row=', row)
+        # print('Raw=', row_raw)
+        # print()
+        return prediksi(row)
 
     @hybrid_property
     def pekerjaan_str(self):

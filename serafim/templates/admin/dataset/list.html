@@ -33,6 +33,19 @@
               {% endraw %}
             </div>
 
+            <ul class="navbar-nav mr-lg-4 mx-4" style="min-width: 400px;">
+              <li class="nav-item nav-search d-none d-lg-block w-100">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="search">
+                      <i class="mdi mdi-magnify"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
+                </div>
+              </li>
+            </ul>
+
             <a class="btn btn-primary ml-auto" href="/admin/dataset/create">
               Tambah Kasus
             </a>
@@ -147,7 +160,7 @@
                       href="/admin/dataset/update/{{dset_row.id}}"
                       type="button"
                       class="btn btn-primary btn-rounded btn-sm">
-                        <i class="mdi mdi-home-outline"></i>
+                        <i class="mdi mdi-label"></i>
                     </a>
                     <a
                       href="/admin/dataset/delete/{{dset_row.id}}"

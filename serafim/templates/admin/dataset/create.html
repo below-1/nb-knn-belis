@@ -13,6 +13,12 @@
 
             {{ macros.input("tanggal_lahir", type="date", label="Tanggal Lahir", required=True) }}
 
+            {{ macros.input("kecamatan", label="Kecamatan") }}
+
+            {{ macros.input("longitude", label="Longitude") }}
+
+            {{ macros.input("latitude", label="Latitude") }}
+
             {{ macros.select("status_adat", options=options['status_adat'], label="Status Adat") }}
 
             {{ macros.select("tingkat_pendidikan", options=options['tingkat_pendidikan'], label="Tingkat Pendidikan") }}

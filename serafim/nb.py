@@ -39,7 +39,6 @@ class NaiveBayesV2:
         return result
 
     def run(self, attr_row):
-        print('attr_row=', attr_row)
         if len(attr_row) != self.n_attr:
             raise Exception('Dimension of input not match')
 
@@ -48,6 +47,9 @@ class NaiveBayesV2:
         for _class in class_summary.keys():
             summ = self.summarize_attributes_by_class(_class)
             attributes_summary[_class] = summ
+
+        # print(f"class_summary={class_summary}")
+        # print(f"attributes_summary={attributes_summary}")
 
         total_case = len(self.rows)
         result = []
@@ -58,7 +60,7 @@ class NaiveBayesV2:
 
             prob_attrs = [
                 # This could be zero
-                attributes_summary[clz][attr_idx].get(attr_val, 0.0) / count_clz # This will be float, because we divided by float
+                (attributes_summary[clz][attr_idx].get(attr_val, 0.0) + 1) / count_clz # This will be float, because we divided by float
                 for (attr_idx, attr_val) in enumerate(attr_row) ]
             total_prod = 1
             for prob_attr in prob_attrs:
@@ -67,13 +69,16 @@ class NaiveBayesV2:
 
             result.append((clz, total_prod))
 
-        sorted_result = sorted(result, key=lambda pair: pair[1])
+        sorted_result = sorted(result, key=lambda pair: pair[1], reverse=True)
         max_clz, max_prob = sorted_result[0]
 
         # Run knn
         max_sim = -1
         max_row_id = -1
-        for attrs, target, id in self.rows:
+        max_row_ids = set()
+        rows_with_sim = []
+        for row in self.rows:
+            attrs, target, id = row
             # Count the same element at same position
             total_same_elements = sum([
                 1 if input_attr_val == data_attr_val else 0
@@ -91,6 +96,7 @@ class NaiveBayesV2:
             if sim > max_sim:
                 max_sim = sim
                 max_row_id = id
+            rows_with_sim.append((row, sim))
 
         return {
             'max_nb_class_id': max_clz,

@@ -7,11 +7,11 @@ from serafim.model.base import Base
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    username = Column(String, nullable=False)
-    nama = Column(String, nullable=False)
-    password = Column(String, nullable=False)
-    role = Column(String, nullable=False)
-    email = Column(String, nullable=True)
+    username = Column(String(250), nullable=False)
+    nama = Column(String(250), nullable=False)
+    password = Column(String(250), nullable=False)
+    role = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=True)
     records = relationship("DsetRow", back_populates="user")
 
     def as_dict(self):

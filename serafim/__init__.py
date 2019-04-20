@@ -1,8 +1,11 @@
 import os
-from serafim.config import APP_SECRET
+import click
 from environs import Env
-from flask import Flask, render_template, session, redirect
-
+from flask import Flask
+from flask import render_template
+from flask import session
+from flask import redirect
+from serafim.config import APP_SECRET
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -30,6 +33,9 @@ def create_app(test_config=None):
     from serafim.admin import admin_blueprint
     app.register_blueprint(admin_blueprint)
 
+    from serafim.user import user_blueprint
+    app.register_blueprint(user_blueprint)
+
     #
     # # Register auth blueprint
     from serafim.auth import auth_blueprint
@@ -44,13 +50,5 @@ def create_app(test_config=None):
     #
     # from .routes import user
     # app.register_blueprint(user.user_bp)
-
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
-    @app.route('/')
-    def index():
-        return render_template('index.html')
 
     return app

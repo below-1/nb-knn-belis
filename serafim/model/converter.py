@@ -62,6 +62,11 @@ def dset_to_vector(dset_row: DsetRow):
     hub_keluarga = 1 if dset_row.hub_kel else 0
     status = dset_row.status_adat
 
+    if usia < 17: usia = 1
+    elif 17 <= usia <= 22: usia = 2
+    elif 23 <= usia <= 28: usia = 3
+    elif 29 <= usia <= 34: usia = 4
+
     if pend == TingkatPendidikan.TIDAK_SEKOLAH: pend = 0
     elif pend == TingkatPendidikan.SD: pend = 1
     elif pend == TingkatPendidikan.SMP: pend = 2

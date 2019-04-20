@@ -58,7 +58,7 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-          <p class="text-white-75 font-weight-light mb-5">Start Bootstrap can help you build better websites using the Bootstrap framework! Just download a theme and start customizing, no strings attached!</p>
+          <p class="text-white-75 font-weight-light mb-5">Sistem Prediksi Jumlah Belis Menggunakan Naive Bayes dan KNN!</p>
           <a class="btn btn-primary btn-xl js-scroll-trigger" href="/prediksi">Mulai</a>
         </div>
       </div>
@@ -67,26 +67,26 @@
 
   <section class="page-section" id="services">
     <div class="container">
-      <h2 class="text-center mt-0">At Your Service</h2>
+      <h2 class="text-center mt-0">Input Data Anda / Pasangan Anda</h2>
       <hr class="divider my-4">
       <div class="row">
         <div class="col-lg-5 col-md-6 text-center mx-auto">
           <div class="mt-5">
             <div class="card text-left">
               <div class="card-body">
-                <form>
+                <form method="post" action="/prediksi" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Nama Anda Atau Pasangan Anda</label>
                     <input class="form-control" type='text' name='nama' required/>
                   </div>
                   <div class="form-group">
                     <label>Tanggal Lahir Yang Bersangkutan</label>
-                    <input class="form-control" type='date' name='tanggalLahir' required/>
+                    <input class="form-control" type='date' name='tanggal_lahir' required/>
                   </div>
                   <div class="form-group">
                     <label>Tingkat Pendidikan</label>
                     <select 
-                      name="tingkatPendidikan" 
+                      name="tingkat_pendidikan"
                       class="form-control" 
                     >
                       <option value="TIDAK_SEKOLAH">Tidak Sekolah</option>
@@ -110,10 +110,19 @@
                   </div>
                   <div class="form-group">
                     <label>Tingkat Ekonomi</label>
-                    <select name="tingkatEkonomi" class="form-control">
+                    <select name="tingkat_ekonomi" class="form-control">
                       <option value="RENDAH">Rendah</option>
                       <option value="SEDANG">Sedang</option>
                       <option value="TINGGI">Tinggi</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Status Adat</label>
+                    <select name="status_adat" class="form-control">
+                      <option value="HAMBA">Hamba</option>
+                      <option value="BIASA">Biasa</option>
+                      <option value="MARAMBA">Maramba</option>
+                      <option value="BANGSAWAN">Bangsawan</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -121,7 +130,7 @@
                     <div class="form-check">
                       <input class="form-check-input" 
                         type="radio" 
-                        name="hubKel"
+                        name="hub_kel"
                         value="1">
                       <label class="form-check-label">
                         Ya
@@ -130,114 +139,20 @@
                     <div class="form-check">
                       <input class="form-check-input" 
                         type="radio" 
-                        name="hubKel"
+                        name="hub_kel"
                         value="0">
                       <label class="form-check-label">
                         Tidak
                       </label>
                     </div>
                   </div>
+                  <button type="submit" class="btn btn-primary btn-xl mx-auto d-block">Prediksi!</button>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-
-  <!-- Portfolio Section -->
-  <section id="portfolio">
-    <div class="container-fluid p-0">
-      <div class="row no-gutters">
-        <div class="col-lg-4 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
-            <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
-            <div class="portfolio-box-caption">
-              <div class="project-category text-white-50">
-                Category
-              </div>
-              <div class="project-name">
-                Project Name
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
-            <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
-            <div class="portfolio-box-caption">
-              <div class="project-category text-white-50">
-                Category
-              </div>
-              <div class="project-name">
-                Project Name
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
-            <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
-            <div class="portfolio-box-caption">
-              <div class="project-category text-white-50">
-                Category
-              </div>
-              <div class="project-name">
-                Project Name
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
-            <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
-            <div class="portfolio-box-caption">
-              <div class="project-category text-white-50">
-                Category
-              </div>
-              <div class="project-name">
-                Project Name
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
-            <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
-            <div class="portfolio-box-caption">
-              <div class="project-category text-white-50">
-                Category
-              </div>
-              <div class="project-name">
-                Project Name
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
-            <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
-            <div class="portfolio-box-caption p-3">
-              <div class="project-category text-white-50">
-                Category
-              </div>
-              <div class="project-name">
-                Project Name
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Call to Action Section -->
-  <section class="page-section bg-dark text-white">
-    <div class="container text-center">
-      <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
-      <a class="btn btn-light btn-xl" href="https://startbootstrap.com/themes/creative/">Download Now!</a>
     </div>
   </section>
 
@@ -283,6 +198,17 @@
   <!-- Custom scripts for this template -->
   <script src="/static/js/creative.min.js"></script>
   <script src="/static/js/vue.js"></script>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '675113982938013',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v3.2'
+      });
+    };
+  </script>
+  <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
   <script src="/static/js/app.js"></script>
 
 </body>

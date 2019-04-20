@@ -16,7 +16,7 @@ from werkzeug.security import (
 from serafim.model import db_session_required
 from serafim.model import User
 
-auth_blueprint = Blueprint('auth', __name__, '/auth')
+auth_blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_blueprint.route('/login_admin', methods=['GET', 'POST'])
 @db_session_required
@@ -39,6 +39,7 @@ def login_admin():
     if error is None:
         session.clear()
         session['user_id'] = user.id
+        session['username'] = user.username
         session['role'] = user.role
         return redirect(url_for('admin.admin_list_dataset'))
 
@@ -48,6 +49,11 @@ def login_admin():
 @auth_blueprint.route('/login_user')
 def login_user():
     return render_template("auth/login_user.html")
+
+@auth_blueprint.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('auth.login_admin'))
 
 def auth_required(f):
     @wraps(f)

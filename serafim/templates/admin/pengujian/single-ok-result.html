@@ -27,7 +27,7 @@
             {{ listRow("Usia", "%d tahun" % new_case.usia)}}
             {{ listRow("Tingkat Pendidikan", new_case.tingkat_pendidikan.name)}}
             {{ listRow("Pekerjaan", new_case.pekerjaan_str)}}
-            {{ listRow("Pekerjaan", 'Ada' if new_case.hub_keluarga else 'Tidak Ada')}}
+            {{ listRow("Hubungan Keluarga", 'Ada' if new_case.hub_keluarga else 'Tidak Ada')}}
             {{ listRow("Tingkat Pendidikan", new_case.tingkat_ekonomi.name.capitalize())}}
         </ul>
 
@@ -43,7 +43,7 @@
             {{ listRow("Usia", "%d tahun" % most_sim_case.usia)}}
             {{ listRow("Tingkat Pendidikan", most_sim_case.tingkat_pendidikan.name)}}
             {{ listRow("Pekerjaan", most_sim_case.pekerjaan_str)}}
-            {{ listRow("Pekerjaan", 'Ada' if most_sim_case.hub_keluarga else 'Tidak Ada')}}
+            {{ listRow("Hubungan Keluarga", 'Ada' if most_sim_case.hub_keluarga else 'Tidak Ada')}}
             {{ listRow("Tingkat Pendidikan", most_sim_case.tingkat_ekonomi.name.capitalize())}}
         </ul>
 
