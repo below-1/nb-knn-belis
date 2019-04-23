@@ -97,6 +97,8 @@ class NaiveBayesV2:
                 max_sim = sim
                 max_row_id = id
             rows_with_sim.append((row, sim))
+        max_sim = max([ sim for _, sim in rows_with_sim ])
+        selected_rows = [ row for row, sim in rows_with_sim if sim == max_sim ]
 
         return {
             'max_nb_class_id': max_clz,

@@ -1,15 +1,11 @@
-import json
 from flask import request
 from flask import render_template
 from flask import session
 from flask import g
-from flask import url_for
-from flask import redirect
 from serafim.auth import admin_required
 from serafim.admin.blueprint import admin_blueprint
 from serafim.model import db_session_required
 from serafim.model import DsetRow
-from serafim.model import ThreeLevelEnum
 from serafim.model import TingkatPendidikan
 from serafim.model import StatusAdat
 from serafim.model import Pekerjaan
@@ -17,36 +13,7 @@ from serafim.model import TingkatEkonomi
 from serafim.model import converter
 from serafim.nb import NaiveBayesV2
 from serafim.kfold import kfold
-
-DSET_FORM_OPTIONS = {
-    'status_adat': [
-        ('Hamba', StatusAdat.HAMBA.name),
-        ('Biasa', StatusAdat.BIASA.name),
-        ('Maramba', StatusAdat.MARAMBA.name),
-        ('Bangsawan', StatusAdat.BANGSAWAN.name)
-    ],
-    'tingkat_pendidikan': [
-        ('Tidak Sekolah', TingkatPendidikan.TIDAK_SEKOLAH.name),
-        ('SD', TingkatPendidikan.SD.name),
-        ('SMP', TingkatPendidikan.SMP.name),
-        ('SMA', TingkatPendidikan.SMA.name),
-        ('D3', TingkatPendidikan.D3.name),
-        ('S1', TingkatPendidikan.S1.name),
-        ('S2', TingkatPendidikan.S2.name),
-        ('S3', TingkatPendidikan.S3.name)
-    ],
-    'pekerjaan': [
-        ('Petani', Pekerjaan.PETANI.name),
-        ('Honorer / Pegawai Tidak Tetap', Pekerjaan.HONORER_PTT.name),
-        ('PNS', Pekerjaan.PNS.name),
-        ('Tenun Ikat', Pekerjaan.TENUN_IKAT.name)
-    ],
-    'tingkat_ekonomi': [
-        ('Rendah', TingkatEkonomi.RENDAH.name),
-        ('Sedang', TingkatEkonomi.SEDANG.name),
-        ('Tinggi', TingkatEkonomi.TINGGI.name)
-    ]
-}
+from serafim.admin.util import  DSET_FORM_OPTIONS
 
 @admin_blueprint.route('/pengujian/single', methods=['GET', 'POST'])
 @admin_required
@@ -59,7 +26,7 @@ def admin_pengujian_single():
 
     form = request.form
     dset_row = DsetRow()
-    dset_row = converter.kasus_from_dict(dset_row, form)
+    dset_row = converter.dset_from_dict(dset_row, form)
 
     # Exclude target and id
     vector, _, __ = converter.dset_to_vector(dset_row)
@@ -70,7 +37,6 @@ def admin_pengujian_single():
     naive_bayes = NaiveBayesV2(dataset, 6)
     result = naive_bayes.run(vector)
 
-    # First we need to copy the solusi.
     most_sim_id = result['max_knn_row_id']
     most_sim_case = db_session.query(DsetRow).filter(DsetRow.id == most_sim_id).first()
 

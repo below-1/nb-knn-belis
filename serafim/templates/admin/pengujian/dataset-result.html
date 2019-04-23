@@ -1,0 +1,53 @@
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
+
+{% block mainContent %}
+  <div class="row">
+    <div class="col-md-3 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-header">
+          <h4>Rangkuman</h4>
+        </div>
+        <div class="card-body">
+          <form class="forms-sample" method="POST" enctype="multipart/form-data">
+            {{ macros.input("k", type="number", label="Jumlah Fold", value=k, readonly=True) }}
+            {{ macros.input("total_hit", type="number", label="Total Hit", value=kfold_result.total_hit, readonly=True) }}
+            {{ macros.input("total_miss", type="number", label="Total Miss", value=kfold_result.total_miss, readonly=True) }}
+            {{ macros.input("accuracy", type="number", label="Accuracy", value=kfold_result.accuracy * 100, readonly=True) }}
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-header">
+          <h4>Hasil Tiap Fold</h4>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <th>Partisi</th>
+              <th>Total Data</th>
+              <th>Hit</th>
+              <th>Miss</th>
+              <th>Accuracy</th>
+            </thead>
+            <tbody>
+              {% for part in kfold_result.parts_result %}
+                <tr>
+                  <td>{{ loop.index + 1 }}</td>
+                  <td>{{ part.total_hit + part.total_miss }}</td>
+                  <td>{{ part.total_hit }}</td>
+                  <td>{{ part.total_miss }}</td>
+                  <td>{{ "{0:.2f}".format(part.accuracy * 100) }}%</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

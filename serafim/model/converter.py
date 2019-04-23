@@ -9,7 +9,7 @@ import datetime
 def datetime_from_html_input(s: str):
     return datetime.datetime.strptime(s, "%Y-%m-%d")
 
-def kasus_from_dict(dset_row: DsetRow, data: dict, is_kasus=True, is_record=False):
+def dset_from_dict(dset_row: DsetRow, data: dict, is_kasus=True, is_record=False):
     dset_row.nama = data['nama']
 
     # Parse the string to Python datetime object

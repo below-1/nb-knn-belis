@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
+
+{% block mainContent %}
+  <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Parameter Pengujian</h4>
+          <form class="forms-sample" method="POST" enctype="multipart/form-data">
+            {{ macros.input("k", type="number", label="Jumlah Fold", required=True) }}
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

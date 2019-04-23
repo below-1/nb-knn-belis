@@ -17,7 +17,7 @@ def user_landing():
 def user_prediksi():
     form = request.form
     dset_row = DsetRow()
-    dset_row = converter.kasus_from_dict(dset_row, form)
+    dset_row = converter.dset_from_dict(dset_row, form)
 
     # Exclude target and id
     vector, _, __ = converter.dset_to_vector(dset_row)
