@@ -1,6 +1,8 @@
 from collections import namedtuple
+from serafim.model import DsetRow
 
 Classification = namedtuple('Classification', ['max_prob', 'clazz'])
+KnnResult = namedtuple('KnnResult', ['similarity', 'selected_ids'])
 
 class NaiveBayesV2:
     '''
@@ -105,9 +107,8 @@ class NaiveBayesV2:
 
         # Find all row with highest similarity
         selected_rows = [ row for row, sim in rows_with_sim if sim == max_sim ]
-
-        # Construct the solution
-        print('row=', row)
+        selected_ids = [ id for _, __, id in selected_rows ]
+        return KnnResult(similarity=max_sim, selected_ids=selected_ids)
 
 
     def run(self, attr_row):
@@ -178,3 +179,15 @@ class NaiveBayesV2:
             'max_knn_sim': max_sim
         }
 
+def construct_solution(db_session, ids):
+    selected = db_session.query(DsetRow).filter(DsetRow.id.in_(ids)).all()
+
+    attrs = [
+        (s.mamuli_kaki, s.mamuli_polos, s.kuda, s.kerbau, s.sapi, s.uang)
+        for s in selected
+    ]
+    n_sr = len(ids)
+
+    zipped_attrs = list(zip(*attrs))
+    attr_result = [ int(sum(xs) * 1.0 / n_sr) for xs in zipped_attrs ]
+    return attr_result

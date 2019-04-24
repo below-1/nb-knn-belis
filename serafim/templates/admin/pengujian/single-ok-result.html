@@ -36,15 +36,15 @@
     <div class="col-md-4 grid-margin stretch-card">
       <div class="card">
           <div class="card-header">
-              Data Kasus Paling Mirip
+              Hasil
           </div>
         <ul class="list-group">
-            {{ listRow("Nama", most_sim_case.nama)}}
-            {{ listRow("Usia", "%d tahun" % most_sim_case.usia)}}
-            {{ listRow("Tingkat Pendidikan", most_sim_case.tingkat_pendidikan.name)}}
-            {{ listRow("Pekerjaan", most_sim_case.pekerjaan_str)}}
-            {{ listRow("Hubungan Keluarga", 'Ada' if most_sim_case.hub_keluarga else 'Tidak Ada')}}
-            {{ listRow("Tingkat Pendidikan", most_sim_case.tingkat_ekonomi.name.capitalize())}}
+            {{ listRow("Mamuli Kaki", knn_attr[0]) }}
+            {{ listRow("Mamuli Polos", knn_attr[1]) }}
+            {{ listRow("Kuda", knn_attr[2]) }}
+            {{ listRow("Kerbau", knn_attr[3]) }}
+            {{ listRow("Sapi", knn_attr[4]) }}
+            {{ listRow("Uang", knn_attr[5]) }}
         </ul>
 
       </div>
@@ -55,8 +55,8 @@
               Hasil
           </div>
         <ul class="list-group">
-            {{ listRow("Probabilitas Naive Bayes", result['max_nb_prob'])}}
-            {{ listRow("Similaritas Kasus", result['max_knn_sim'])}}
+            {{ listRow("Probabilitas Naive Bayes", classification.max_prob)}}
+            {{ listRow("Similaritas Kasus", knn_result.similarity)}}
         </ul>
 
       </div>

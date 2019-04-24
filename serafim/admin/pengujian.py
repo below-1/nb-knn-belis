@@ -11,7 +11,7 @@ from serafim.model import StatusAdat
 from serafim.model import Pekerjaan
 from serafim.model import TingkatEkonomi
 from serafim.model import converter
-from serafim.nb import NaiveBayesV2
+from serafim.nb import NaiveBayesV2, construct_solution
 from serafim.kfold import kfold
 from serafim.admin.util import  DSET_FORM_OPTIONS
 
@@ -35,26 +35,27 @@ def admin_pengujian_single():
     raw_data = db_session.query(DsetRow).filter(DsetRow.is_kasus == True).all()
     dataset = list(map(converter.dset_to_vector, raw_data))
     naive_bayes = NaiveBayesV2(dataset, 6)
-    result = naive_bayes.run(vector)
-
-    most_sim_id = result['max_knn_row_id']
-    most_sim_case = db_session.query(DsetRow).filter(DsetRow.id == most_sim_id).first()
+    naive_bayes.build()
+    classification = naive_bayes.classify(vector)
+    knn_result = naive_bayes.knn(vector, classification.clazz)
+    knn_attr = construct_solution(db_session, knn_result.selected_ids)
 
     dset_row.user_id = session['user_id']
-    dset_row.mamuli_kaki = most_sim_case.mamuli_kaki
-    dset_row.mamuli_polos = most_sim_case.mamuli_polos
-    dset_row.kuda = most_sim_case.kuda
-    dset_row.kerbau = most_sim_case.kerbau
-    dset_row.sapi = most_sim_case.sapi
-    dset_row.uang = most_sim_case.uang
+    dset_row.mamuli_kaki = knn_attr[0]
+    dset_row.mamuli_polos = knn_attr[1]
+    dset_row.kuda = knn_attr[2]
+    dset_row.kerbau = knn_attr[3]
+    dset_row.sapi = knn_attr[4]
+    dset_row.uang = knn_attr[5]
     dset_row.is_record = True
     dset_row.is_kasus = True
-    dset_row.similarity = result['max_knn_sim']
+    dset_row.similarity = knn_result.similarity
 
     return render_template("admin/pengujian/single-ok-result.html",
                            new_case=dset_row,
-                           most_sim_case=most_sim_case,
-                           result=result)
+                           classification=classification,
+                           knn_result=knn_result,
+                           knn_attr=knn_attr)
 
 
 @admin_blueprint.route('/pengujian/dataset', methods=['GET', 'POST'])
