@@ -1,3 +1,7 @@
+from collections import namedtuple
+
+Classification = namedtuple('Classification', ['max_prob', 'clazz'])
+
 class NaiveBayesV2:
     '''
       Multinomial naive bayes for binary category implementation with ordered attributes.
@@ -9,6 +13,8 @@ class NaiveBayesV2:
             raise Exception("Failure: Rows can't be empty")
         self.rows = rows
         self.n_attr = n_attr
+        self.attributes_summary = None
+        self.class_summary = None
 
     def summarize_classes(self):
         result = {}
@@ -37,6 +43,72 @@ class NaiveBayesV2:
         #     print('after loop result=', result)
         # print('after func result=', result)
         return result
+
+    def build(self):
+        self.class_summary = self.summarize_classes()
+        self.attributes_summary = {}
+        for _class in self.class_summary.keys():
+            summ = self.summarize_attributes_by_class(_class)
+            self.attributes_summary[_class] = summ
+
+    def classify(self, attr_row):
+        total_case = len(self.rows)
+        result = []
+        for clz in self.class_summary.keys():
+            # This could be zero
+            count_clz = self.class_summary.get(clz, 0) * 1.0  # Multiply by float to promote the type
+            prob_clz = (count_clz * 1.0) + 1 / (total_case + 1)
+
+            prob_attrs = [
+                # This could be zero
+                (self.attributes_summary[clz][attr_idx].get(attr_val, 0.0) + 1) / count_clz
+                # This will be float, because we divided by float
+                for (attr_idx, attr_val) in enumerate(attr_row)]
+            total_prod = 1
+            for prob_attr in prob_attrs:
+                total_prod *= prob_attr
+            total_prod *= prob_clz
+
+            result.append((clz, total_prod))
+
+        sorted_result = sorted(result, key=lambda pair: pair[1], reverse=True)
+        max_clz, max_prob = sorted_result[0]
+        return Classification(max_prob=max_prob, clazz=max_clz)
+
+    def knn(self, attr_row, clazz):
+        # Run knn
+        max_sim = -1
+        max_row_id = -1
+        max_row_ids = set()
+        rows_with_sim = []
+        for row in self.rows:
+            attrs, target, id = row
+            if target != clazz: continue
+
+            # Count the same element at same position
+            total_same_elements = sum([
+                1 if input_attr_val == data_attr_val else 0
+                for (input_attr_val, data_attr_val) in zip(attr_row, attrs)
+            ])
+            # Difference between elements just difference between total_element and total_same_element
+            # Total element is equal the dimension of input of course.
+            total_diff_element = self.n_attr - total_same_elements
+
+            # I guess we could substract directly with self.dimension
+            # For now let's follow the rule.
+            sim = total_same_elements * 1.0 / (total_same_elements + total_diff_element)
+
+            if sim > max_sim:
+                max_sim = sim
+                max_row_id = id
+            rows_with_sim.append((row, sim))
+
+        # Find all row with highest similarity
+        selected_rows = [ row for row, sim in rows_with_sim if sim == max_sim ]
+
+        # Construct the solution
+        print('row=', row)
+
 
     def run(self, attr_row):
         if len(attr_row) != self.n_attr:
@@ -87,7 +159,6 @@ class NaiveBayesV2:
             # Difference between elements just difference between total_element and total_same_element
             # Total element is equal the dimension of input of course.
             total_diff_element = self.n_attr - total_same_elements
-
 
             # I guess we could substract directly with self.dimension
             # For now let's follow the rule.
