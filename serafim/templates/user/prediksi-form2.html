@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+    {% include "user/commons/header.snippet.html" %}
+    <body>
+
+        <!--================Header Menu Area =================-->
+        <header class="header_area">
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="index.html"><img src="/static/user/img/logo.png" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav justify-content-center">
+                                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
+                                <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                    aria-expanded="false">Pages</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="price.html">Pricing</a>
+                                        <li class="nav-item"><a class="nav-link" href="games.html">Games</a>
+                                        <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a>
+                                    </ul>
+                                </li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                    aria-expanded="false">Blog</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item active"><a class="nav-link" href="contact.html">Contact</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="nav-item"><a href="#" class="primary_btn">join us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!--================Header Menu Area =================-->
+
+        <!--================Home Banner Area =================-->
+        <section class="banner_area">
+            <div class="banner_inner d-flex align-items-center">
+            	<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+				<div class="container">
+					<div class="banner_content text-center">
+						<div class="page_link">
+							<a href="index.html">Home</a>
+							<a href="contact.html">CONTACT</a>
+						</div>
+						<h2>CONTACT US</h2>
+
+					</div>
+				</div>
+            </div>
+        </section>
+        <!--================End Home Banner Area =================-->
+
+        <!--================Contact Area =================-->
+        <section class="contact_area section_gap">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-3">
+                    </div>
+                    <div class="col-lg-6">
+                        <form method="post" action="/prediksi" enctype="multipart/form-data">
+                          <div class="form-group">
+                            <label>Nama Anda Atau Pasangan Anda</label>
+                            <input class="form-control" type='text' name='nama' required/>
+                          </div>
+                          <div class="form-group">
+                            <label>Tanggal Lahir Yang Bersangkutan</label>
+                            <input class="form-control" type='date' name='tanggal_lahir' required/>
+                          </div>
+                          <div class="form-group">
+                            <label>Tingkat Pendidikan</label>
+                            <select
+                              name="tingkat_pendidikan"
+                              class="form-control"
+                            >
+                              <option value="TIDAK_SEKOLAH">Tidak Sekolah</option>
+                              <option value="SD">Sd</option>
+                              <option value="SMP">SMP</option>
+                              <option value="SMA">SMA</option>
+                              <option value="D3">D3</option>
+                              <option value="S1">S1</option>
+                              <option value="S2">S2</option>
+                              <option value="S3">S3</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label>Pekerjaan</label>
+                            <select name="pekerjaan" class="form-control">
+                              <option value="PETANI">Petani</option>
+                              <option value="TENUN_IKAT">Tenun Ikat</option>
+                              <option value="HONORER_PTT">Honorer/PTT</option>
+                              <option value="PNS">PNS</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label>Tingkat Ekonomi</label>
+                            <select name="tingkat_ekonomi" class="form-control">
+                              <option value="RENDAH">Rendah</option>
+                              <option value="SEDANG">Sedang</option>
+                              <option value="TINGGI">Tinggi</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label>Status Adat</label>
+                            <select name="status_adat" class="form-control">
+                              <option value="HAMBA">Hamba</option>
+                              <option value="BIASA">Biasa</option>
+                              <option value="MARAMBA">Maramba</option>
+                              <option value="BANGSAWAN">Bangsawan</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label>Memiliki Hubungan Kekeluargaan</label>
+                            <div class="form-check">
+                              <input class="form-check-input"
+                                type="radio"
+                                name="hub_kel"
+                                value="1">
+                              <label class="form-check-label">
+                                Ya
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input"
+                                type="radio"
+                                name="hub_kel"
+                                value="0">
+                              <label class="form-check-label">
+                                Tidak
+                              </label>
+                            </div>
+                          </div>
+                          <div class="contact_form">
+                            <button type="submit" value="submit" class="primary_btn">Prediksi</button>
+                          </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================Contact Area =================-->
+
+        <!--================Footer Area =================-->
+        <footer class="footer_area section_gap_top">
+            <div class="container">
+                <div class="row footer_inner">
+                    <div class="col-lg-3 col-sm-6">
+                        <aside class="f_widget ab_widget">
+                            <div class="f_title">
+                                <h4>About Farfly</h4>
+                            </div>
+                            <ul>
+                                <li><a href="#"></a>For Business</a></li><a href="#">
+                                    <li><a href="#"></a>Premium Plans
+                                </a></li>
+                                <li><a href="#"></a>Reviews</a></li>
+                                <li><a href="#"></a>How it Works</a></li>
+                                <li><a href="#"></a>Farfly Blog</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <aside class="f_widget ab_widget">
+                            <div class="f_title">
+                                <h4>Company</h4>
+                            </div>
+                            <ul>
+                                <li><a href="#"></a>Product Tour</a></li><a href="#">
+                                    <li><a href="#"></a>Pricing
+                                </a></li>
+                                <li><a href="#"></a>Founding Members</a></li>
+                                <li><a href="#"></a>Case Studies</a></li>
+                                <li><a href="#"></a>Product Updates</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <aside class="f_widget ab_widget">
+                            <div class="f_title">
+                                <h4>Support</h4>
+                            </div>
+                            <ul>
+                                <li><a href="#"></a>Documentation</a></li><a href="#">
+                                    <li><a href="#"></a>Data Securiry
+                                </a></li>
+                                <li><a href="#"></a>Site Performance</a></li>
+                                <li><a href="#"></a>Action Plan</a></li>
+                                <li><a href="#"></a>Resources</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <aside class="f_widget ab_widget">
+                            <div class="f_title">
+                                <h4>Legal</h4>
+                            </div>
+                            <ul>
+                                <li><a href="#"></a>Terms and conditions</a></li><a href="#">
+                                    <li><a href="#"></a>Privacy Policy
+                                </a></li>
+                                <li><a href="#"></a>Cookie Information</a></li>
+                                <li><a href="#"></a>Opt - Out</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+                <div class="row single-footer-widget">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="copy_right_text">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="social_widget">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                            <a href="#"><i class="fa fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--================End Footer Area =================-->
+
+        <!--================Contact Success and Error message Area =================-->
+        <div id="success" class="modal modal-message fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-close"></i>
+                        </button>
+                        <h2>Thank you</h2>
+                        <p>Your message is successfully sent...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals error -->
+
+        <div id="error" class="modal modal-message fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-close"></i>
+                        </button>
+                        <h2>Sorry !</h2>
+                        <p> Something went wrong </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--================End Contact Success and Error message Area =================-->
+
+
+
+
+        {% include "user/commons/scripts.snippet.html" %}
+    </body>
+</html>

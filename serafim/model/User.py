@@ -13,10 +13,12 @@ class User(Base):
     role = Column(String(250), nullable=False)
     email = Column(String(250), nullable=True)
     records = relationship("DsetRow", back_populates="user")
+    fb_id = Column(String(250), nullable=True)
 
     def as_dict(self):
         return {
             'id': self.id,
             'username': self.username,
-            'nama': self.nama
+            'nama': self.nama,
+            'fb_id': self.fb_id
         }

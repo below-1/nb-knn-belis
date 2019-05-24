@@ -11,7 +11,9 @@ from serafim.admin import dataset
 from serafim.admin import revisi
 from serafim.admin import data_user
 from serafim.admin import pengujian
+from serafim.admin import rule
 from serafim.auth import admin_required
+from serafim.services import nrb
 
 @admin_blueprint.route('/')
 @admin_required
@@ -19,12 +21,15 @@ from serafim.auth import admin_required
 def admin_dashboard():
     db_session = g.get('db_session')
     all_record = db_session.query(DsetRow).all()
+    is_low = lambda r: nrb.prediksi_code(r) == ThreeLevelEnum.RENDAH
+    is_mid = lambda r: nrb.prediksi_code(r) == ThreeLevelEnum.SEDANG
+    is_high = lambda r: nrb.prediksi_code(r) == ThreeLevelEnum.TINGGI
 
     total_record = len(all_record)
     total_case = len([ r for r in all_record if r.is_kasus ])
-    total_low = len([ r for r in all_record if r.is_kasus and r.prediksi_code == ThreeLevelEnum.RENDAH ])
-    total_mid = len([ r for r in all_record if r.is_kasus and r.prediksi_code == ThreeLevelEnum.SEDANG ])
-    total_high = len([ r for r in all_record if r.is_kasus and r.prediksi_code == ThreeLevelEnum.TINGGI ])
+    total_low = len([ r for r in all_record if r.is_kasus and is_low(r) ])
+    total_mid = len([ r for r in all_record if r.is_kasus and is_mid(r) ])
+    total_high = len([ r for r in all_record if r.is_kasus and is_high(r) ])
 
     result = {
         'total_record': total_record,
@@ -34,3 +39,4 @@ def admin_dashboard():
         'total_high': total_high
     }
     return render_template('admin/dashboard.html', **result)
+

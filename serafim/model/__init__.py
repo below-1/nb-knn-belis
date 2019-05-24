@@ -32,7 +32,7 @@ def init_db():
     print(DATABASE_URI)
     print(Base.metadata.create_all(_engine))
     dbsession = _create_session()
-    phash = generate_password_hash('admin')
+    phash = generate_password_hash('super-admin')
     admin = User(
         nama='Super admin',
         username='super-admin',

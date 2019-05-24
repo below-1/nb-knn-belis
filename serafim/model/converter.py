@@ -4,6 +4,7 @@ from serafim.model.DsetRow import TingkatEkonomi
 from serafim.model.DsetRow import Pekerjaan
 from serafim.model.DsetRow import StatusAdat
 from serafim.model.DsetRow import ThreeLevelEnum
+from serafim.services import nrb
 import datetime
 
 def datetime_from_html_input(s: str):
@@ -100,7 +101,7 @@ def dset_to_vector(dset_row: DsetRow):
 
     prediksi = None
     try:
-        pcode = dset_row.prediksi_code
+        pcode = nrb.prediksi_code(dset_row)
         if pcode == ThreeLevelEnum.RENDAH: prediksi = 0
         if pcode == ThreeLevelEnum.SEDANG: prediksi = 1
         if pcode == ThreeLevelEnum.TINGGI: prediksi = 2

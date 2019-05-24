@@ -21,7 +21,6 @@ from sqlalchemy.sql import func
 
 from serafim.model.base import Base
 from serafim.model.ThreeLevelEnum import ThreeLevelEnum
-from serafim.model.rules import prediksi
 
 TLE_LOW = ThreeLevelEnum.RENDAH
 TLE_MID = ThreeLevelEnum.SEDANG
@@ -137,20 +136,6 @@ class DsetRow(Base):
         if val < 5_000_000: return ThreeLevelEnum.RENDAH
         if 5_000_000 <= val <= 10_000_000: return ThreeLevelEnum.SEDANG
         if val > 10_000_000: return ThreeLevelEnum.TINGGI
-
-    @hybrid_property
-    def prediksi_code(self):
-        row = ( self.mamulu_kaki_code, self.mamulu_polos_code, self.kuda_code, self.kerbau_code, self.sapi_code, self.uang_code )
-        # row_raw = ( self.mamuli_kaki,
-        #             self.mamuli_polos,
-        #             self.kuda,
-        #             self.kerbau,
-        #             self.sapi,
-        #             self.uang )
-        # print('Row=', row)
-        # print('Raw=', row_raw)
-        # print()
-        return prediksi(row)
 
     @hybrid_property
     def pekerjaan_str(self):

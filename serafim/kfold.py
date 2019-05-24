@@ -12,6 +12,10 @@ def split(a, n):
 
 def kfold(dataset, k=10):
     partitions = list(split(dataset, k))
+    # print('len_parts=', len(partitions))
+    # print('len_part_1=', len(partitions[0]))
+    # print('len_part_2=', len(partitions[1]))
+    # print('len_part_3=', len(partitions[2]))
     total_hit = 0
     total_miss = 0
     total_accuracy = 0
@@ -19,8 +23,28 @@ def kfold(dataset, k=10):
     for idx in range(k):
         test = partitions[idx]
         train = [ x for i in range(k) if i != idx for x in partitions[i] ]
+        # print('train======')
+        # print()
+        # print('part=', idx+1)
+        # print(f"len_train: {len(train)}")
+        total_1 = [ x[1] for x in train if x[1] == 1 ]
+        total_2 = [ x[1] for x in train if x[1] == 2 ]
+        total_0 = [ x[1] for x in train if x[1] == 0 ]
+        # print('total_0 = ', len(total_0))
+        # print('total_1 = ', len(total_1))
+        # print('total_2 = ', len(total_2))
+
+        test_1 = [x[1] for x in test if x[1] == 1]
+        test_2 = [x[1] for x in test if x[1] == 2]
+        test_0 = [x[1] for x in test if x[1] == 0]
+        # print('test_0 = ', len(test_0))
+        # print('test_1 = ', len(test_1))
+        # print('test_2 = ', len(test_2))
         nb = NaiveBayesV2(train, 6)
         part_result = test_part(nb, test)
+        # print()
+        # if (idx > 0):
+        #     print('part_result=', part_result)
         parts_result.append(part_result)
         total_hit += part_result.total_hit
         total_miss += part_result.total_miss
@@ -36,14 +60,17 @@ def kfold(dataset, k=10):
 
 def test_part(nb, test_data):
     rows_result = []
+    nb.build()
     for vector, target, id in test_data:
+        classification = nb.classify(vector)
+        knn_result = nb.knn(vector, classification.clazz)
         single_result = nb.run(vector)
         single_row_result = SingleRowResult(
                               vector=vector,
                               target=target,
                               id=id,
-                              system=single_result['max_nb_class_id'],
-                              similarity=single_result['max_knn_sim'])
+                              system=classification.clazz,
+                              similarity=knn_result.similarity)
         rows_result.append(single_row_result)
 
     total_sim = 0

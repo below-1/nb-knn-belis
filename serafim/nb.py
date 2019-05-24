@@ -52,6 +52,12 @@ class NaiveBayesV2:
         for _class in self.class_summary.keys():
             summ = self.summarize_attributes_by_class(_class)
             self.attributes_summary[_class] = summ
+        # for k in self.attributes_summary.keys():
+        #     print(f"\t{k}")
+        #     for _dict in self.attributes_summary[k]:
+        #         for _k, _v in _dict.items():
+        #             print(f"\t\t{_k} = {_v}")
+        #         print()
 
     def classify(self, attr_row):
         total_case = len(self.rows)
@@ -59,17 +65,21 @@ class NaiveBayesV2:
         for clz in self.class_summary.keys():
             # This could be zero
             count_clz = self.class_summary.get(clz, 0) * 1.0  # Multiply by float to promote the type
-            prob_clz = (count_clz * 1.0) + 1 / (total_case + 1)
+            # print('count_clz=', count_clz)
+            # print('total_case=', total_case)
+            prob_clz = (count_clz + 1) / (total_case + 1)
 
             prob_attrs = [
                 # This could be zero
-                (self.attributes_summary[clz][attr_idx].get(attr_val, 0.0) + 1) / count_clz
+                self.attributes_summary[clz][attr_idx].get(attr_val, 0.0) / (count_clz + 1)
                 # This will be float, because we divided by float
                 for (attr_idx, attr_val) in enumerate(attr_row)]
             total_prod = 1
             for prob_attr in prob_attrs:
                 total_prod *= prob_attr
             total_prod *= prob_clz
+            # print(f'{clz} --> {total_prod}')
+            # print()
 
             result.append((clz, total_prod))
 
@@ -143,6 +153,8 @@ class NaiveBayesV2:
             result.append((clz, total_prod))
 
         sorted_result = sorted(result, key=lambda pair: pair[1], reverse=True)
+        # print(class_summary)
+        # print()
         max_clz, max_prob = sorted_result[0]
 
         # Run knn

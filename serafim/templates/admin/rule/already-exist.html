@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
 
-</body>
-</html>
+{% block mainContent %}
+  <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Rule sudah ada</h4>
+            <a class="btn btn-lg btn-info" href="/admin/rule/create">Ulangi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

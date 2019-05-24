@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+{% include "user/commons/header.snippet.html" %}
+
+<body>
+
+	{% block topScripts %}
+	{% endblock %}
+
+	<!--================Header Menu Area =================-->
+	<header class="header_area">
+		<div class="main_menu">
+			{% include "user/commons/navbar.snippet.html" %}
+		</div>
+	</header>
+	<!--================Header Menu Area =================-->
+
+	{% block mainContent %}
+	{% endblock %}
+
+	<!--================Footer Area =================-->
+	{% include "user/commons/footer.snippet.html" %}
+	<!--================End Footer Area =================-->
+
+	{% block scripts %}
+		{% include "user/commons/scripts.snippet.html" %}
+	{% endblock %}
+</body>
+
+</html>

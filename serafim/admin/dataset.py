@@ -8,8 +8,42 @@ from serafim.auth import admin_required
 from serafim.admin.blueprint import admin_blueprint
 from serafim.model import db_session_required
 from serafim.model import DsetRow
+from serafim.model import ThreeLevelEnum
 from serafim.model import converter
 from serafim.admin.util import DSET_FORM_OPTIONS
+from serafim.services import nrb
+
+@admin_blueprint.route('/dataset/test')
+@admin_required
+@db_session_required
+def foobar():
+    mock_dset = DsetRow()
+    mock_dset.mamuli_kaki = 0
+    mock_dset.mamuli_polos = 12
+    mock_dset.kuda = 23
+    mock_dset.kerbau = 8
+    mock_dset.sapi = 8
+    mock_dset.uang = 7000000
+    row = (
+        ThreeLevelEnum.RENDAH,
+        ThreeLevelEnum.RENDAH,
+        ThreeLevelEnum.SEDANG,
+        ThreeLevelEnum.SEDANG,
+        ThreeLevelEnum.SEDANG,
+        ThreeLevelEnum.SEDANG
+    )
+    gen_row = (
+        mock_dset.mamulu_kaki_code,
+        mock_dset.mamulu_polos_code,
+        mock_dset.kuda_code,
+        mock_dset.kerbau_code,
+        mock_dset.sapi_code,
+        mock_dset.uang_code
+    )
+    print(row)
+    print(gen_row == row)
+    print(nrb.check(row))
+    return "OK"
 
 @admin_blueprint.route('/dataset')
 @admin_required
@@ -26,12 +60,11 @@ def admin_list_dataset():
 
     db_session = g.get('db_session')
     dataset = db_session.query(DsetRow).filter(DsetRow.is_kasus == True).all()
-    print(dataset)
-    print([ row.usia for row in dataset ])
     return render_template("admin/dataset/list.html",
       items=dataset,
       show_detail_profile=show_detail_profile,
-      show_detail_belis=show_detail_belis
+      show_detail_belis=show_detail_belis,
+      nrb=nrb
     )
 
 @admin_blueprint.route('/dataset/create', methods=['GET', 'POST'])

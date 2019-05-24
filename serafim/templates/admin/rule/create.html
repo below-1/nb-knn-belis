@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
+
+{% block mainContent %}
+  <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Input Rule</h4>
+          <form class="forms-sample" method="POST" enctype="multipart/form-data">
+
+            {{ macros.select("mamuli_kaki", options=rule_options, label="Mamuli Kaki") }}
+            {{ macros.select("mamuli_polos", options=rule_options, label="Mamuli Polos") }}
+            {{ macros.select("kuda", options=rule_options, label="Kuda") }}
+            {{ macros.select("kerbau", options=rule_options, label="Kerbau") }}
+            {{ macros.select("sapi", options=rule_options, label="Sapi") }}
+            {{ macros.select("uang", options=rule_options, label="Uang") }}
+            {{ macros.select("jumlah", options=rule_options, label="Jumlah") }}
+
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

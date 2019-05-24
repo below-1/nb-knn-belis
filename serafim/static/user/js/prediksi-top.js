@@ -1,12 +1,10 @@
-
-
-function statusChangeCallback (response) {
-    console.log("Status response: ", response);
-}
-
-FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-});
+//function statusChangeCallback (response) {
+//    console.log("Status response: ", response);
+//}
+//
+//FB.getLoginStatus(function(response) {
+//    statusChangeCallback(response);
+//});
 
 //FB.login(function(response) {
 //    if (response.authResponse) {

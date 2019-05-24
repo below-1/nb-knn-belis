@@ -2,6 +2,7 @@ from serafim.model import TingkatPendidikan
 from serafim.model import StatusAdat
 from serafim.model import Pekerjaan
 from serafim.model import TingkatEkonomi
+from serafim.model import ThreeLevelEnum
 
 DSET_FORM_OPTIONS = {
     'status_adat': [
@@ -32,3 +33,9 @@ DSET_FORM_OPTIONS = {
         ('Tinggi', TingkatEkonomi.TINGGI.name)
     ]
 }
+
+RULE_OPTIONS = [
+    ('Rendah', ThreeLevelEnum.RENDAH.name),
+    ('Sedang', ThreeLevelEnum.SEDANG.name),
+    ('Tinggi', ThreeLevelEnum.TINGGI.name)
+]
