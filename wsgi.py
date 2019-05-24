@@ -1,3 +1,3 @@
 from serafim import create_app
 
-app = create_app()
+serafim = create_app()
