@@ -19,7 +19,7 @@ from serafim.model.DsetRow import TingkatEkonomi
 from serafim.model import converter
 from serafim.model.seed import seed
 
-_engine = create_engine(DATABASE_URI, pool_size=5, max_overflow=4)
+_engine = create_engine(DATABASE_URI, pool_size=5, max_overflow=0)
 _DbSession = sessionmaker(autoflush=True)
 
 def _create_session():
