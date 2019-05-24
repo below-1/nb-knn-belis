@@ -39,6 +39,20 @@
             <div class="container">
 
                 <div class="row">
+                    <div class="col-xs-12 text-md-center">
+                        <aside class="single_sidebar_widget author_widget">
+                            <img class="author_img rounded-circle" v-bind:src="user.picture" alt="">
+                            <h4>{{ user.nama }}</h4>
+                            <div class="social_icon">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </div>
+                            <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.</p>
+                            <div class="br"></div>
+                        </aside>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-lg-3 hidden-xs">
                     </div>
                     <div class="col-lg-6 col-xs-12">
@@ -106,7 +120,6 @@
                           </div>
                           <div class="contact_form">
                             <button id="submit-button" @click="submit" type="button" class="primary_btn">Prediksi</button>
-                              <button id="logout-button" @click="fbLogout" type="button" class="primary_btn">PrediksiLogout</button>
                           </div>
                         </form>
 

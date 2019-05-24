@@ -1,6 +1,8 @@
 var vueApp = new Vue({
     el: '#vue-app',
     data: {
+        user: {
+        },
         result: {
             status: 'idle',
             mamuli_kaki: 0,
@@ -83,7 +85,6 @@ var vueApp = new Vue({
                 if (response && response.status === 'connected') {
                     FB.logout(function(response) {
                         console.log(response);
-                        document.location.reload();
                     });
                 }
             });
