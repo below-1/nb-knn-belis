@@ -54,7 +54,7 @@ def create_app(test_config=None):
 
     @app.after_request
     def close_session(resp):
-        if g.db_session:
+        if 'db_session' in g:
             g.db_session.close()
         return resp
 
