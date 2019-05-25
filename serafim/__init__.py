@@ -5,6 +5,7 @@ from flask import Flask
 from flask import render_template
 from flask import session
 from flask import redirect
+from flask import g
 from serafim.config import APP_SECRET
 
 def create_app(test_config=None):
@@ -50,5 +51,11 @@ def create_app(test_config=None):
     #
     # from .routes import user
     # app.register_blueprint(user.user_bp)
+
+    @app.after_request
+    def close_session(resp):
+        if g.db_session:
+            g.db_session.close()
+        return resp
 
     return app

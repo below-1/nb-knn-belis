@@ -78,16 +78,11 @@ def close_session(e=None):
         session.close()
 
 
-def after_request_handler(resp):
-    close_session()
-    return resp
-
 # Register session lifecycle hook to instance.
 # Using function since we use factory.
 def init_app(app=None):
     if app is None: raise Exception('App is none!')
     app.teardown_appcontext(close_session)
-    app.after_request(after_request_handler)
     app.after_request()
     app.cli.add_command(init_db)
     app.cli.add_command(do_seed)
