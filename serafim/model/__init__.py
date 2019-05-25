@@ -83,7 +83,6 @@ def close_session(e=None):
 def init_app(app=None):
     if app is None: raise Exception('App is none!')
     app.teardown_appcontext(close_session)
-    app.after_request()
     app.cli.add_command(init_db)
     app.cli.add_command(do_seed)
     app.cli.add_command(test_prediksi_code)
