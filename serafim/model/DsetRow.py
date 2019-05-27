@@ -84,7 +84,6 @@ class DsetRow(Base):
     is_record = Column(Boolean, nullable=False)
 
     similarity = Column(Float, nullable=True)
-    created_at = Column(DateTime, server_default=func.now())
 
     @hybrid_property
     def tanggal_html_string(self):
