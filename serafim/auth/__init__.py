@@ -92,7 +92,7 @@ def login_user():
 @auth_blueprint.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('auth.login_admin'))
+    return redirect('/')
 
 def auth_required(f):
     @wraps(f)

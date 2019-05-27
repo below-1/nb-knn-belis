@@ -1,17 +1,6 @@
 {% extends "user/base.html" %}
 
 {% block topScripts %}
-    <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '675113982938013',
-      xfbml      : true,
-      version    : 'v3.3'
-    });
-  };
-</script>
-    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script async defer src="/static/user/js/prediksi-top.js"></script>
 {% endblock %}
 
 {% block mainContent %}
@@ -37,20 +26,6 @@
         {% raw %}
         <section id="vue-app" class="contact_area section_gap">
             <div class="container">
-
-                <div class="row">
-                    <div class="col-xs-12 text-md-center">
-                        <aside class="single_sidebar_widget author_widget">
-                            <img class="author_img rounded-circle" v-bind:src="user.picture" alt="">
-                            <h4>{{ user.nama }}</h4>
-                            <div class="social_icon">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                            </div>
-                            <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.</p>
-                            <div class="br"></div>
-                        </aside>
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-lg-3 hidden-xs">
@@ -149,6 +124,6 @@
 
 {% block scripts %}
     <script src="/static/js/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/static/js/axios.min.js"></script>
     <script src="/static/user/js/prediksi-bottom.js"></script>
 {% endblock %}

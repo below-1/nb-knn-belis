@@ -61,6 +61,7 @@ class NbRuleBase:
         if self.data is None:
             raise Exception(f"self.data is None")
         self.data.append(xs)
+        self.write()
 
     def remove_rule(self, pos):
         self.data.pop(pos)
@@ -109,6 +110,9 @@ class NbRuleBase:
         if (in_base == None):
             return self.find_most_sim(row)
         return in_base
+
+    def update_rule(self, idx, rule):
+        self.data[idx] = rule
 
     def close(self):
         pass

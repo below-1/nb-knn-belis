@@ -76,6 +76,43 @@ def admin_rule_create():
     nrb.write()
     return redirect(url_for("admin.admin_list_rule"))
 
+@admin_blueprint.route('/rule/update/<idx>', methods=['GET', 'POST'])
+@admin_required
+@db_session_required
+def admin_rule_update(idx):
+    if request.method == 'GET':
+        rules = nrb.data
+        rule = rules[int(idx)]
+        return render_template("admin/rule/update.html", rule_options=RULE_OPTIONS, rule=rule)
+    form = request.form
+    print("form=", form)
+    mk = form['mamuli_kaki']
+    mp = form['mamuli_polos']
+    kuda = form['kuda']
+    kerbau = form['kerbau']
+    sapi = form['sapi']
+    uang = form['uang']
+    jumlah = form['jumlah']
+
+    mk = ThreeLevelEnum[mk]
+    mp = ThreeLevelEnum[mp]
+    kuda = ThreeLevelEnum[kuda]
+    kerbau = ThreeLevelEnum[kerbau]
+    sapi = ThreeLevelEnum[sapi]
+    uang = ThreeLevelEnum[uang]
+    jumlah = ThreeLevelEnum[jumlah]
+
+    # Must be tuple
+    row = (mk, mp, kuda, kerbau, sapi, uang, jumlah)
+    # print(row)
+    is_exists = nrb.check_complete(row)
+    if is_exists:
+        return render_template("admin/rule/already-exist.html")
+
+    nrb.update_rule(int(idx), row)
+    nrb.write()
+    return redirect(url_for("admin.admin_list_rule"))
+
 @admin_blueprint.route('/rule/remove/<pos>', methods=['GET', 'POST'])
 @admin_required
 @db_session_required

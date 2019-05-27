@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% import "admin/commons/macros.commons.html" as macros %}
+
+{% block mainContent %}
+  <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Input Rule</h4>
+          <form class="forms-sample" method="POST" enctype="multipart/form-data">
+
+            {{ macros.select("mamuli_kaki", options=rule_options, label="Mamuli Kaki", default_selected=rule[0].name) }}
+            {{ macros.select("mamuli_polos", options=rule_options, label="Mamuli Polos", default_selected=rule[1].name) }}
+            {{ macros.select("kuda", options=rule_options, label="Kuda", default_selected=rule[2].name) }}
+            {{ macros.select("kerbau", options=rule_options, label="Kerbau", default_selected=rule[3].name) }}
+            {{ macros.select("sapi", options=rule_options, label="Sapi", default_selected=rule[4].name) }}
+            {{ macros.select("uang", options=rule_options, label="Uang", default_selected=rule[5].name) }}
+            {{ macros.select("jumlah", options=rule_options, label="Jumlah", default_selected=rule[6].name) }}
+
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
