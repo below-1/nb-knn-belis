@@ -3,6 +3,7 @@ var vueApp = new Vue({
     data: {
         user: {
         },
+        isResult: false,
         result: {
             status: 'idle',
             mamuli_kaki: 0,
@@ -72,12 +73,16 @@ var vueApp = new Vue({
             return axios.post('/prediksi', payload)
                 .then(predResult => predResult.data)
                 .then(result => {
+                    this.isResult = true;
                     this.result = result;
                 })
                 .catch(err => {
                     console.log('Fail to run prediksi');
                     console.log(err);
                 });
+        },
+        repeat () {
+            this.isResult = false;
         }
     }
 });

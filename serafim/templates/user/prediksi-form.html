@@ -101,18 +101,19 @@
                     </div>
                 </div>
 
-                <div class="row pt-4" v-if="result.status == 'valid'">
+                <div class="row pt-4" v-if="isResult && result.status == 'valid'">
                     <div class="col-lg-3 hiddex-xs"></div>
                     <div class="col-lg-6 col-xs-12">
                         <ul class="list-group">
-                          <li class="list-group-item">Jumlah Belis: {{ result.jumlah_belis }}</li>
-                          <li class="list-group-item">Mamuli Kaki: {{ result.mamuli_kaki }}</li>
-                            <li class="list-group-item">Mamuli Polos: {{ result.mamuli_polos }}</li>
-                          <li class="list-group-item">Kuda: {{ result.kuda }}</li>
-                          <li class="list-group-item">Kerbau: {{ result.kerbau }}</li>
-                          <li class="list-group-item">Sapi: {{ result.sapi }}</li>
-                          <li class="list-group-item">Uang: {{ result.uang }}</li>
+                          <li class="list-group-item bg-primary text-white">Jumlah Belis: {{ result.jumlah_belis }}</li>
+                          <li class="list-group-item bg-primary text-white">Mamuli Kaki: {{ result.mamuli_kaki }}</li>
+                            <li class="list-group-item bg-primary text-white">Mamuli Polos: {{ result.mamuli_polos }}</li>
+                          <li class="list-group-item bg-primary text-white">Kuda: {{ result.kuda }}</li>
+                          <li class="list-group-item bg-primary text-white">Kerbau: {{ result.kerbau }}</li>
+                          <li class="list-group-item bg-primary text-white">Sapi: {{ result.sapi }}</li>
+                          <li class="list-group-item bg-primary text-white">Uang: {{ result.uang }}</li>
                         </ul>
+                        <button id="repeat" @click="repeat" class="btn btn-lg btn-info my-4">Ulangi</button>
                     </div>
                 </div>
             </div>
