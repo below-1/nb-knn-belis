@@ -58,7 +58,7 @@ def signup_user():
     user = User(username=username, nama=username, password=generate_password_hash(password), role='user')
     db_session.add(user)
     db_session.commit()
-    return redirect(url_for('auth.user_login'))
+    return redirect(url_for('auth.login_user'))
 
 @auth_blueprint.route('/login_user', methods=['GET', 'POST'])
 @db_session_required
