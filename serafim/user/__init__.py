@@ -67,7 +67,7 @@ def user_prediksi():
             'jumlah_belis': nrb.prediksi_code(dset_row).name
         })
 
-    return ({
+    return json.dumps({
         'status': 'invalid'
     })
 
