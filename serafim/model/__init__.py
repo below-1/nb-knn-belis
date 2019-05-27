@@ -36,7 +36,7 @@ def init_db():
     admin = User(
         nama='Super admin',
         username='super-admin',
-        role='super-admin',
+        role='admin',
         password=phash
     )
     dbsession.add(admin)

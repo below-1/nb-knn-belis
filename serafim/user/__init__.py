@@ -11,13 +11,14 @@ from serafim.model import db_session_required
 from serafim.nb import NaiveBayesV2
 from serafim.services import nrb
 from serafim.user.blueprint import user_blueprint
-import requests
+from serafim.auth import user_required
 
 @user_blueprint.route('/')
 def user_landing():
     return render_template('user/index.html')
 
 @user_blueprint.route('/prediksi-form')
+@user_required
 def user_prediksi_form():
     return render_template('user/prediksi-form.html')
 
@@ -44,7 +45,7 @@ def user_prediksi():
         most_sim_id = result['max_knn_row_id']
         most_sim_case = db_session.query(DsetRow).filter(DsetRow.id == most_sim_id).first()
 
-        dset_row.user_id = form['user_id']
+        dset_row.user_id = session['user_id']
         dset_row.mamuli_kaki = most_sim_case.mamuli_kaki
         dset_row.mamuli_polos = most_sim_case.mamuli_polos
         dset_row.kuda = most_sim_case.kuda

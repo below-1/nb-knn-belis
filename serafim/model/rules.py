@@ -41,7 +41,7 @@ class NbRuleBase:
         with open(self.path) as f:
             reader = csv.reader(f)
             # data = [ xs for xs in reader]
-            data = [ to_ints(xs) for xs in reader ]
+            data = [ to_ints(xs) for xs in reader if len(xs) != 0 ]
         if data is None:
             raise Exception(f"Fail to read data")
         self.data = [ tuple(int_three(x) for x in xs) for xs in data ]

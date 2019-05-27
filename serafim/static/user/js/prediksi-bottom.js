@@ -62,55 +62,14 @@ var vueApp = new Vue({
             if (item.tanggal_lahir == undefined) return 'Tanggal Lahir invalid'
             if (item.tingkat_pendidikan == undefined) return 'Tingkat pendidikan invalid'
         },
-        fbGetLoginStatus () {
-            return new Promise((resolve, reject) => {
-                FB.getLoginStatus((response) => {
-                    if (response.status == 'not_authorized') {
-                        return reject(response);
-                    } else if (response.status == 'connected'){
-                        return resolve(response);
-                    }
-                })
-            });
-        },
-        fbLogin () {
-            return new Promise((resolve, reject) => {
-                FB.login(function (loginResponse) {
-                    return resolve(loginResponse);
-                });
-            });
-        },
-        fbLogout () {
-            FB.getLoginStatus(function(response) {
-                if (response && response.status === 'connected') {
-                    FB.logout(function(response) {
-                        console.log(response);
-                    });
-                }
-            });
-        },
         submit () {
             var invalid = this.formInvalid()
             if (invalid) {
                 alert(invalid);
                 return;
             }
-            this.fbGetLoginStatus()
-                .catch(err => {
-                    console.log("You're not authenticated");
-                    return this.fbLogin();
-                })
-                .then(response => response.authResponse.userID)
-                .then(fb_id => axios.get('/addUserIfNeeded/' + fb_id).then(resp => resp.data))
-                .catch(err => {
-                    console.log(`Fail to add user data in database`);
-                    throw err;
-                })
-                .then(userID => {
-                    var payload = this.item;
-                    payload.user_id = userID;
-                    return axios.post('/prediksi', payload);
-                })
+            var payload = this.item;;
+            return axios.post('/prediksi', payload)
                 .then(predResult => predResult.data)
                 .then(result => {
                     this.result = result;

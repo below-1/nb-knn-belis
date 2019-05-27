@@ -72,25 +72,25 @@
                               v-model="item.tingkat_pendidikan"
                               class="form-control"
                             >
-                              <option v-for="it in options.pendidikan" :key="it.value" :value="it.value">{{it.text}}</option>
+                              <option v-for="it in options.pendidikan" :key="it.value" v-bind:value="it.value">{{it.text}}</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label>Pekerjaan</label>
                             <select name="pekerjaan" class="form-control" v-model="item.pekerjaan">
-                              <option v-for="it in options.pekerjaan" :key="it.value" :value="it.value">{{it.text}}</option>
+                              <option v-for="it in options.pekerjaan" :key="it.value" v-bind:value="it.value">{{it.text}}</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label>Tingkat Ekonomi</label>
                             <select name="tingkat_ekonomi" class="form-control" v-model="item.tingkat_ekonomi">
-                                <option v-for="it in options.ekonomi" :key="it.value" :value="it.value">{{it.text}}</option>
+                                <option v-for="it in options.ekonomi" :key="it.value" v-bind:value="it.value">{{it.text}}</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label>Status Adat</label>
                             <select name="status_adat" class="form-control" v-model="item.status_adat">
-                                <option v-for="it in options.status_adat" :key="it.value" :value="it.value">{{it.text}}</option>
+                                <option v-for="it in options.status_adat" :key="it.value" v-bind:value="it.value">{{it.text}}</option>
                             </select>
                           </div>
                           <div class="form-group">
@@ -148,7 +148,6 @@
 {% endblock %}
 
 {% block scripts %}
-    super();
     <script src="/static/js/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/static/user/js/prediksi-bottom.js"></script>
