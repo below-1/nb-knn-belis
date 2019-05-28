@@ -28,7 +28,7 @@
             {{ listRow("Tingkat Pendidikan", new_case.tingkat_pendidikan.name)}}
             {{ listRow("Pekerjaan", new_case.pekerjaan_str)}}
             {{ listRow("Hubungan Keluarga", 'Ada' if new_case.hub_keluarga else 'Tidak Ada')}}
-            {{ listRow("Tingkat Pendidikan", new_case.tingkat_ekonomi.name.capitalize())}}
+            {{ listRow("Tingkat Ekonomi", new_case.tingkat_ekonomi.name.capitalize())}}
         </ul>
 
       </div>
@@ -55,6 +55,7 @@
               Hasil
           </div>
         <ul class="list-group">
+            {{ listRow("Prediksi", pcode) }}
             {{ listRow("Probabilitas Naive Bayes", classification.max_prob)}}
             {{ listRow("Similaritas Kasus", knn_result.similarity)}}
         </ul>

@@ -75,14 +75,18 @@ def admin_create_dataset():
         return render_template("admin/dataset/create.html", options=DSET_FORM_OPTIONS)
 
     form = request.form
-    dset_row = DsetRow()
-    dset_row = converter.dset_from_dict(dset_row, form)
+    drow = DsetRow()
+    drow = converter.dset_from_dict(drow, form)
+    if (not nrb.check_drow(drow)):
+        # Add to rule base
+        row = ( drow.mamulu_kaki_code, drow.mamulu_polos_code, drow.kuda_code, drow.kerbau_code, drow.sapi_code, drow.uang_code, nrb.prediksi_code(drow) )
+        nrb.add_rule(row)
 
     user_id = int(session['user_id'])
-    dset_row.user_id = int(user_id)
+    drow.user_id = int(user_id)
 
     db_session = g.get('db_session')
-    db_session.add(dset_row)
+    db_session.add(drow)
     db_session.commit()
     return redirect(url_for("admin.admin_list_dataset"))
 
@@ -93,6 +97,7 @@ def admin_update_dataset(id):
     db_session = g.get('db_session')
     if request.method == 'GET':
         dset_row = db_session.query(DsetRow).filter(DsetRow.id == id).first()
+        print(nrb.prediksi_code(dset_row))
         return render_template("admin/dataset/update.html",
                                dset_row=dset_row,
                                options=DSET_FORM_OPTIONS)

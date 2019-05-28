@@ -8,7 +8,7 @@ from serafim.model import DsetRow
 from serafim.model import converter
 from serafim.model import User
 from serafim.model import db_session_required
-from serafim.nb import NaiveBayesV2
+from serafim.nb import NaiveBayesV2, construct_solution
 from serafim.services import nrb
 from serafim.user.blueprint import user_blueprint
 from serafim.auth import user_required
@@ -38,31 +38,21 @@ def user_prediksi():
     db_session = g.get('db_session')
     raw_data = db_session.query(DsetRow).filter(DsetRow.is_kasus == True).all()
     dataset = list(map(converter.dset_to_vector, raw_data))
-    # raise Exception('Here')
     naive_bayes = NaiveBayesV2(dataset, 6)
-    result = naive_bayes.run(vector)
+    naive_bayes.build()
+    classification = naive_bayes.classify(vector)
+    knn_result = naive_bayes.knn(vector, classification.clazz)
+    knn_attr = construct_solution(db_session, knn_result.selected_ids)
 
-    most_sim_id = result['max_knn_row_id']
-    most_sim_case = db_session.query(DsetRow).filter(DsetRow.id == most_sim_id).first()
-
-    password = generate_password_hash('random')
-    username = 'random'
-    role = 'user'
-    nama = 'random'
-    user = User(username=username, role=role, password=password, nama=nama)
-    db_session.add(user)
-    db_session.commit()
-
-    dset_row.user_id = user.id
-    dset_row.mamuli_kaki = most_sim_case.mamuli_kaki
-    dset_row.mamuli_polos = most_sim_case.mamuli_polos
-    dset_row.kuda = most_sim_case.kuda
-    dset_row.kerbau = most_sim_case.kerbau
-    dset_row.sapi = most_sim_case.sapi
-    dset_row.uang = most_sim_case.uang
+    dset_row.mamuli_kaki = knn_attr[0]
+    dset_row.mamuli_polos = knn_attr[1]
+    dset_row.kuda = knn_attr[2]
+    dset_row.kerbau = knn_attr[3]
+    dset_row.sapi = knn_attr[4]
+    dset_row.uang = knn_attr[5]
     dset_row.is_record = True
     dset_row.is_kasus = True
-    dset_row.similarity = result['max_knn_sim']
+    dset_row.similarity = knn_result.similarity
 
     return json.dumps({
         'status': 'valid',

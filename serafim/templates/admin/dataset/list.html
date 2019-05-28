@@ -56,10 +56,10 @@
           <thead>
             <tr>
               <th>
-                Ditambahkan Oleh
+                #
               </th>
               <th>
-                Nama Pasien
+                Nama
               </th>
               <th>
                 Usia
@@ -110,9 +110,7 @@
 
             {% for dset_row in items %}
               <tr>
-                <td class="py-0">
-                  {{ dset_row.user.nama }}
-                </td>
+                <td>{{ loop.index }}</td>
                 <td>
                   {{ dset_row.nama }}
                 </td>

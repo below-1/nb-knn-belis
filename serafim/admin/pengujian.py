@@ -48,11 +48,18 @@ def admin_pengujian_single():
     dset_row.is_kasus = True
     dset_row.similarity = knn_result.similarity
 
+    prediksi = None
+    pcode = classification.clazz
+    if pcode == 0: prediksi = 'Rendah'
+    elif pcode == 1: prediksi = 'Sedang'
+    elif pcode == 2: prediksi = 'Tinggi'
+
     selected_neighs = db_session.query(DsetRow).filter(DsetRow.id.in_(knn_result.selected_ids))
 
     return render_template("admin/pengujian/single-ok-result.html",
                            new_case=dset_row,
                            classification=classification,
+                           pcode=prediksi,
                            knn_result=knn_result,
                            knn_attr=knn_attr,
                            selected_neighs=selected_neighs)

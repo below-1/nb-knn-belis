@@ -72,7 +72,7 @@ var vueApp = new Vue({
             return axios.post('/prediksi', payload)
                 .then(predResult => predResult.data)
                 .then(result => {
-                    if (result.status == 'invalid') {
+                    if (result.similarity < 0.6) {
                         alert('Data yang dimasukan dibawah threshold!');
                     }
                     this.isResult = true;

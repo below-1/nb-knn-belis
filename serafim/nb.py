@@ -62,6 +62,7 @@ class NaiveBayesV2:
     def classify(self, attr_row):
         total_case = len(self.rows)
         result = []
+        print(self.attributes_summary)
         for clz in self.class_summary.keys():
             # This could be zero
             count_clz = self.class_summary.get(clz, 0) * 1.0  # Multiply by float to promote the type
@@ -78,7 +79,7 @@ class NaiveBayesV2:
             for prob_attr in prob_attrs:
                 total_prod *= prob_attr
             total_prod *= prob_clz
-            # print(f'{clz} --> {total_prod}')
+            print(f'{clz} --> {total_prod}')
             # print()
 
             result.append((clz, total_prod))

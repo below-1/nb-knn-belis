@@ -80,9 +80,11 @@ class NbRuleBase:
             # print('xs=', xs[:-1])
             # input()
             if (row == xs[:-1]):
+                # print('xs : ', xs)
+                # input()
                 return xs[-1]
         # print(row)
-        # raise Exception("Fuck you")
+        print('row=', row)
         return None
 
     def check_drow(self, drow):
