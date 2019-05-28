@@ -62,4 +62,69 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+          <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th>
+                        Nama
+                      </th>
+                      <th>
+                        Usia
+                      </th>
+                      <th>
+                          MK
+                        </th>
+                        <th>
+                          MP
+                        </th>
+                        <th>
+                          KD
+                        </th>
+                        <th>
+                          KB
+                        </th>
+                        <th>
+                          SP
+                        </th>
+                        <th>
+                          UT
+                        </th>
+                        </thead>
+                {% for dset_row in selected_neighs %}
+                  <tr>
+                      <td>
+                        {{ dset_row.nama }}
+                      </td>
+                      <td>
+                        {{ dset_row.usia }} tahun
+                      </td>
+                      <td>
+                          {{ dset_row.mamuli_kaki }}
+                        </td>
+                          <td>
+                          {{ dset_row.mamuli_polos }}
+                        </td>
+                          <td>
+                          {{ dset_row.kuda }}
+                        </td>
+                          <td>
+                          {{ dset_row.kerbau }}
+                        </td>
+                          <td>
+                          {{ dset_row.sapi }}
+                        </td>
+                          <td>
+                          {{ dset_row.uang }}
+                        </td>
+                  </tr>
+                {% endfor %}
+            </table>
+          </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

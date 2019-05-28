@@ -48,11 +48,14 @@ def admin_pengujian_single():
     dset_row.is_kasus = True
     dset_row.similarity = knn_result.similarity
 
+    selected_neighs = db_session.query(DsetRow).filter(DsetRow.id.in_(knn_result.selected_ids))
+
     return render_template("admin/pengujian/single-ok-result.html",
                            new_case=dset_row,
                            classification=classification,
                            knn_result=knn_result,
-                           knn_attr=knn_attr)
+                           knn_attr=knn_attr,
+                           selected_neighs=selected_neighs)
 
 
 @admin_blueprint.route('/pengujian/dataset', methods=['GET', 'POST'])

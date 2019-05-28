@@ -12,13 +12,16 @@ from serafim.nb import NaiveBayesV2
 from serafim.services import nrb
 from serafim.user.blueprint import user_blueprint
 from serafim.auth import user_required
+from werkzeug.security import (
+    check_password_hash,
+    generate_password_hash
+)
 
 @user_blueprint.route('/')
 def user_landing():
     return render_template('user/index.html')
 
 @user_blueprint.route('/prediksi-form')
-@user_required
 def user_prediksi_form():
     return render_template('user/prediksi-form.html')
 
@@ -39,36 +42,38 @@ def user_prediksi():
     naive_bayes = NaiveBayesV2(dataset, 6)
     result = naive_bayes.run(vector)
 
-    # If similarity is greater than 80% save it to database.
-    if result['max_knn_sim'] >= 0.8:
-        # First we need to copy the solusi.
-        most_sim_id = result['max_knn_row_id']
-        most_sim_case = db_session.query(DsetRow).filter(DsetRow.id == most_sim_id).first()
+    most_sim_id = result['max_knn_row_id']
+    most_sim_case = db_session.query(DsetRow).filter(DsetRow.id == most_sim_id).first()
 
-        dset_row.user_id = session['user_id']
-        dset_row.mamuli_kaki = most_sim_case.mamuli_kaki
-        dset_row.mamuli_polos = most_sim_case.mamuli_polos
-        dset_row.kuda = most_sim_case.kuda
-        dset_row.kerbau = most_sim_case.kerbau
-        dset_row.sapi = most_sim_case.sapi
-        dset_row.uang = most_sim_case.uang
-        dset_row.is_record = True
-        dset_row.is_kasus = True
-        dset_row.similarity = result['max_knn_sim']
+    password = generate_password_hash('random')
+    username = 'random'
+    role = 'user'
+    nama = 'random'
+    user = User(username=username, role=role, password=password, nama=nama)
+    db_session.add(user)
+    db_session.commit()
 
-        return json.dumps({
-            'status': 'valid',
-            'mamuli_kaki': dset_row.mamuli_kaki,
-            'mamuli_polos': dset_row.mamuli_polos,
-            'kuda': dset_row.kuda,
-            'kerbau': dset_row.kerbau,
-            'sapi': dset_row.sapi,
-            'uang': dset_row.uang,
-            'jumlah_belis': nrb.prediksi_code(dset_row).name
-        })
+    dset_row.user_id = user.id
+    dset_row.mamuli_kaki = most_sim_case.mamuli_kaki
+    dset_row.mamuli_polos = most_sim_case.mamuli_polos
+    dset_row.kuda = most_sim_case.kuda
+    dset_row.kerbau = most_sim_case.kerbau
+    dset_row.sapi = most_sim_case.sapi
+    dset_row.uang = most_sim_case.uang
+    dset_row.is_record = True
+    dset_row.is_kasus = True
+    dset_row.similarity = result['max_knn_sim']
 
     return json.dumps({
-        'status': 'invalid'
+        'status': 'valid',
+        'mamuli_kaki': dset_row.mamuli_kaki,
+        'mamuli_polos': dset_row.mamuli_polos,
+        'kuda': dset_row.kuda,
+        'kerbau': dset_row.kerbau,
+        'sapi': dset_row.sapi,
+        'uang': dset_row.uang,
+        'jumlah_belis': nrb.prediksi_code(dset_row).name,
+        'similarity': dset_row.similarity
     })
 
 

@@ -44,8 +44,7 @@ var vueApp = new Vue({
             status_adat: [
                 { value: 'HAMBA', text: 'Hamba' },
                 { value: 'BIASA', text: 'Biasa' },
-                { value: 'MARAMBA', text: 'Maramba' },
-                { value: 'BANGSAWAN', text: 'Bangsawan' }
+                { value: 'MARAMBA', text: 'Maramba' }
             ],
             ekonomi: [
                 { value: 'RENDAH', text: 'Rendah' },
@@ -73,6 +72,9 @@ var vueApp = new Vue({
             return axios.post('/prediksi', payload)
                 .then(predResult => predResult.data)
                 .then(result => {
+                    if (result.status == 'invalid') {
+                        alert('Data yang dimasukan dibawah threshold!');
+                    }
                     this.isResult = true;
                     this.result = result;
                 })
