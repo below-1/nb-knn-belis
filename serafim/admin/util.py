@@ -8,8 +8,7 @@ DSET_FORM_OPTIONS = {
     'status_adat': [
         ('Hamba', StatusAdat.HAMBA.name),
         ('Biasa', StatusAdat.BIASA.name),
-        ('Maramba', StatusAdat.MARAMBA.name),
-        ('Bangsawan', StatusAdat.BANGSAWAN.name)
+        ('Maramba', StatusAdat.MARAMBA.name)
     ],
     'tingkat_pendidikan': [
         ('Tidak Sekolah', TingkatPendidikan.TIDAK_SEKOLAH.name),

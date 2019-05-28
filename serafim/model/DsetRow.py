@@ -40,7 +40,6 @@ class StatusAdat(enum.Enum):
     HAMBA = 'HAMBA'
     BIASA = 'BIASA'
     MARAMBA = 'MARAMBA'
-    BANGSAWAN = 'BANGSAWAN'
 
 class Pekerjaan(enum.Enum):
     PETANI = 'PETANI'
